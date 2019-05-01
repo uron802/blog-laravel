@@ -41,7 +41,9 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
 <script>
         ClassicEditor
-            .create( document.querySelector( '#text' ) )
+            .create( document.querySelector( '#text' ), {
+                toolbar: [ 'bold', 'link', 'blockQuote' ],
+            } )
             .catch( error => {
                 console.error( error );
             } );

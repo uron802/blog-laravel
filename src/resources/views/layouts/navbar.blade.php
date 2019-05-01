@@ -6,31 +6,34 @@
         </a>
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
         <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
+        @auth<span aria-hidden="true"></span>@endauth
         <span aria-hidden="true"></span>
         </a>
     </div>
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-        <a class="navbar-item" href="https://uron.uh-oh.jp/demo/blog-laravel">
-            ホーム
-        </a>
-        <a class="navbar-item" href="https://github.com/uron802/blog-laravel">
-            ドキュメント
-        </a>
-        <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-                {{ config('app.name', 'Laravel') }}
+            <a class="navbar-item" href="https://uron.uh-oh.jp/demo/blog-laravel">
+                ホーム
             </a>
-            <div class="navbar-dropdown">
-                <a class="navbar-item" href="{{ route('article.list') }}">
-                    記事一覧
+            <a class="navbar-item" href="https://github.com/uron802/blog-laravel">
+                ドキュメント
+            </a>
+            @auth
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    {{ config('app.name', 'Laravel') }}
                 </a>
-                <a class="navbar-item" href="{{ route('article.create') }}">
-                    記事作成
-                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="{{ route('article.list') }}">
+                        記事一覧
+                    </a>
+                    <a class="navbar-item" href="{{ route('article.create') }}">
+                        記事作成
+                    </a>
+                </div>
             </div>
-        </div>
+            @endauth
         </div>
         <div class="navbar-end">
             <div class="navbar-item">
