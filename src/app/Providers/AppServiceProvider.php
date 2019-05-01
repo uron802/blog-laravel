@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -26,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // バージョン5.7.7より古いMySQLや、バージョン10.2.2より古いMariaDBを使用している場合に使用
         Schema::defaultStringLength(191);
+
+        // Bootstrap4 -> default　へ変更
+        Paginator::defaultView('pagination::bulma');
+        Paginator::defaultSimpleView('pagination::bulma-simple');
     }
 }

@@ -1,8 +1,11 @@
-#wrapper {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
+div.article-text {
+    margin-bottom: 30px;
 }
 
-.page-item {
-    display: inline;
+div.button-area {
+    margin-top: 30px;
+}
+
+span.post-date-time {
+    margin-bottom: 30px;
 }

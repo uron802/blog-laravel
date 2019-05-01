@@ -1,31 +1,35 @@
-@extends('layouts.app')
+@extends('layouts.app-admin')
 
 @section('content')
 
 <form action="{{ route('article.update', ['id' => $article->id]) }}" method='post' id='update-form'>
     @csrf
-    <div>
-        <label for="title">タイトル：</label>
-        <input type="text" name="title" id="title" value="{{ $article->title }}">
-        @if($errors->has('title'))
-        <div>{{ $errors->first('title') }}</div>
+    <div class="field">
+        <p class="control">
+            <input type="text" name="title" id="title" class='input' placeholder='タイトル' value="{{ $article->title }}" required>
+        </p>
+        @if ($errors->has('title'))
+        <p class="help is-danger">
+            {{ $errors->first('title') }}
+        </p>
         @endif
     </div>
     <div>
-        <label for="text">本文：</label>
         <textarea name="text" id="text" cols="30" rows="10" id="text">{{ $article->text }}</textarea>
         @if($errors->has('text'))
         <div>{{ $errors->first('text') }}</div>
         @endif
     </div>
     <input type="hidden" name="publish" id="publish" value="{{ $article->publish }}">
+    <div class='button-area'>
     @if($article->publish == "0")
-    <input type="submit" value="下書きに保存する" onclick="event.preventDefault();document.getElementById('publish').value='0';document.getElementById('update-form').submit();">
-    <input type="submit" value="公開する" onclick="event.preventDefault();document.getElementById('publish').value='1';document.getElementById('update-form').submit();">
+        <input type="submit" class='button' value="下書きに保存する" onclick="event.preventDefault();document.getElementById('publish').value='0';document.getElementById('update-form').submit();">
+        <input type="submit" class='button is-success' value="公開する" onclick="event.preventDefault();document.getElementById('publish').value='1';document.getElementById('update-form').submit();">
     @else
-    <input type="submit" value="更新する" onclick="event.preventDefault();document.getElementById('publish').value='1';document.getElementById('update-form').submit();">
-    <input type="submit" value="下書きに戻す" onclick="event.preventDefault();document.getElementById('back-draft-form').submit();">
+        <input type="submit" class='button is-success' value="更新する" onclick="event.preventDefault();document.getElementById('publish').value='1';document.getElementById('update-form').submit();">
+        <input type="submit" class='button' value="下書きに戻す" onclick="event.preventDefault();document.getElementById('back-draft-form').submit();">
     @endif
+    </div>
 </form>
 <form action="{{ route('article.back.draft', ['id' => $article->id]) }}" method='post' id='back-draft-form'>
     @csrf

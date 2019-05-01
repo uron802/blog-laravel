@@ -24,24 +24,10 @@
 <body>
     @include('layouts.navbar')
     <div class='container'>
-        <header class='hero'>
-            <div class='hero-body'>
-                    <div class='container'>
-                        <h1 class='title'>
-                            <a href='{{ route("article") }}'>
-                                {{ config('app.name', 'Laravel') }}
-                            </a>
-                        </h1>
-                    </div>
-            </div>
-        </header>
-        <section id="wrapper" class='tile is-ancestor'>
-            <main class='tile is-parent'>
+        <section id="wrapper">
+            <main>
                 @yield('content')
             </main>
-            <nav class='tile is-2 is-parent'>
-                @include('layouts.sidebar')
-            </nav>
         </section>
     </div>
 @yield('script')

@@ -1,7 +1,45 @@
-@extends('layouts.app')
+@extends('layouts.app-auth')
 
 @section('content')
-<div class="container">
+
+<section class="hero">
+    <div class="hero-body">
+        <h1 class="title">
+            {{ __('Login') }}
+        </h1>
+    </div>
+</section>
+<div class='box'>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <div class="field">
+            <p class="control">
+                <input id="email" type="email" placeholder="Email" class="input {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+            </p>
+            @if ($errors->has('email'))
+            <p class="help is-danger">
+                {{ $errors->first('email') }}
+            </p>
+            @endif
+        </div>
+        <div class="field">
+            <p class="control">
+                <input id="password" type="password" placeholder="Password" class="input {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+            </p>
+            @if ($errors->has('password'))
+            <p class="help is-danger">
+                {{ $errors->first('password') }}
+            </p>
+            @endif
+        </div>
+        <button type="submit" class="button is-block is-info is-large is-fullwidth"> {{ __('Login') }}</button>
+    </form>
+</div>
+
+
+
+
+<div class="container" style="display:none;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
