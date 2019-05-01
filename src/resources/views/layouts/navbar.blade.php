@@ -2,21 +2,17 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="https://github.com/uron802/blog-laravel">
-            blog-laravel
+            GitHub
         </a>
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
         <span aria-hidden="true"></span>
         @auth<span aria-hidden="true"></span>@endauth
-        <span aria-hidden="true"></span>
         </a>
     </div>
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="navbarBasic" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="https://uron.uh-oh.jp/demo/blog-laravel">
+            <a class="navbar-item" href="{{ url('/') }}">
                 ホーム
-            </a>
-            <a class="navbar-item" href="https://github.com/uron802/blog-laravel">
-                ドキュメント
             </a>
             @auth
             <div class="navbar-item has-dropdown is-hoverable">
