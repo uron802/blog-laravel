@@ -22,22 +22,28 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>
-            <a href='{{ route("article") }}'>
-                {{ config('app.name', 'Laravel') }}
-            </a>
-        </h1>
-    </header>
-    <section id="wrapper">
-        <nav>
-            @include('layouts.sidebar')
-        </nav>
-        <main>
-            @yield('content')
-        </main>
-    </section>
-    <footer></footer>
+    <div class='container'>
+        <header class='hero'>
+            <div class='hero-body'>
+                    <div class='container'>
+                        <h1 class='title'>
+                        <a href='{{ route("article") }}'>
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                        </h1>
+                    </div>
+            </div>
+        </header>
+        <section id="wrapper" class='columns'>
+            <nav class='column'>
+                @include('layouts.sidebar')
+            </nav>
+            <main class='column'>
+                @yield('content')
+            </main>
+        </section>
+    </div>
+    <footer class='footer'></footer>
 @yield('script')
 </body>
 </html>
