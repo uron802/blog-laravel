@@ -6,7 +6,8 @@
         </a>
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
         <span aria-hidden="true"></span>
-        @auth<span aria-hidden="true"></span>@endauth
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
         </a>
     </div>
     <div id="navbarBasic" class="navbar-menu">
