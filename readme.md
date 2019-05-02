@@ -11,6 +11,9 @@ Blog Application made with Laravel
 |---|---|
 |demo@example.com|demodemo|
 
+* PHP 7.3.4
+* MySQL 5.7
+
 ## Install
 * cd hogehoge
 * git clone https://github.com/uron802/blog-laravel.git
