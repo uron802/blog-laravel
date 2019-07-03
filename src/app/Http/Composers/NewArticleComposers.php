@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Composers;
 
-use App\Article;
+use App\Models\Article;
 use Illuminate\View\View;
 
 class NewArticleComposers
