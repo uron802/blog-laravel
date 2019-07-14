@@ -19,8 +19,8 @@
             @endif
             <td>{{ $article->title }}</td>
             <td>{{ $article->post_date_time }}</td>
-            <td><a class='button is-primary' href="{{ route('article.edit', ['id' => $article->id]) }}">編集</a></td>
-            <td><a class='button is-danger' href="{{ route('article.delete', ['id' => $article->id]) }}">削除</a></td>
+            <td><a class='button is-primary' href="{{ route('article.edit', ['id' => $article->id]) }}">編集する</a></td>
+            <td><a class='button is-danger' href="{{ route('article.delete', ['id' => $article->id]) }}">削除する</a></td>
             @if($article->publish == "1")
             <td><a class='button' href="{{ route('article.show', ['id' => $article->id]) }}">記事を見る</a></td>
             @else

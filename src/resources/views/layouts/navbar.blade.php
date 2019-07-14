@@ -28,6 +28,9 @@
                     <a class="navbar-item" href="{{ route('article.create') }}">
                         記事作成
                     </a>
+                    <a class="navbar-item" href="{{ route('comment.list') }}">
+                        コメント一覧
+                    </a>
                 </div>
             </div>
             @endauth

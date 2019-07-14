@@ -9,10 +9,18 @@
         <div class="article-text content">
             {!! $article->text !!}
         </div>
+        <a class="button" href='{{ route("article.show", ["id" => $article->id]) }}'>
+            <span class="icon is-large has-text-info">
+                <i class="mdi mdi-comment-outline mdi-24px"></i>
+            </span>
+            <span>{!! $article->comments->where('approval_flg', true)->count() !!}</span>
+        </a>
+    </div>
+    @endforeach
+    <div class="tile is-child">
         @if(count($articles) > 0)
         {{ $articles->links() }}
         @endif
     </div>
-    @endforeach
 
 @endsection

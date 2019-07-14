@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,8 @@ class ArticleController extends Controller
     public function show($id, Request $request)
     {
         $article = Article::find($id);
-        return view('article.show', ['article' => $article]);
+        $comments = Comment::where('parent_article_id', $id)->get();
+        return view('article.show', ['article' => $article, 'comments' => $comments]);
     }
     public function create(Request $request)
     {
@@ -56,13 +58,22 @@ class ArticleController extends Controller
         unset($form['_token']);
 
         $article = Article::find($id);
-        $article->fill($form)->save();
+
+        if($article != null)
+        {
+            $article->fill($form)->save();
+        }
 
         return redirect()->route('article.list');
     }
     public function delete($id, Request $request)
     {
-        $article = Article::find($id)->delete();
+        $article = Article::find($id);
+
+        if($article != null)
+        {
+            $article->delete();
+        }
 
         return redirect()->route('article.list');
     }
@@ -73,8 +84,12 @@ class ArticleController extends Controller
         unset($form['_token']);
 
         $article = Article::find($id);
-        $article->publish = '0';
-        $article->fill($form)->save();
+
+        if($article != null)
+        {
+            $article->publish = '0';
+            $article->fill($form)->save();
+        }
 
         return redirect()->route('article.list');
     }

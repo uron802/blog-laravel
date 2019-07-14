@@ -17,4 +17,11 @@ class Article extends Model
     {
         return $query->where('publish', $str);
     }
+    /**
+     * 記事のコメントを取得
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment', 'parent_article_id');
+    }
 }

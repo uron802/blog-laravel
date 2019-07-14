@@ -15,7 +15,10 @@ Auth::routes();
 
 // トップページ
 Route::get('/', 'ArticleController@index')->name('article');
+// 記事詳細
 Route::get('/article/show/{id}', 'ArticleController@show')->name('article.show');
+// コメント登録
+Route::post('/article/{id}/comment/store', 'CommentController@store')->name('comment.store');
 
 /** 以下、要認証 */
 
@@ -35,3 +38,11 @@ Route::post('/article/update/{id}', 'ArticleController@update')->name('article.u
 Route::get('/article/delete/{id}', 'ArticleController@delete')->name('article.delete')->middleware('auth');
 // 下書きへ戻す
 Route::post('/article/back/draft/{id}', 'ArticleController@backDraft')->name('article.back.draft')->middleware('auth');
+// コメント一覧
+Route::get('/comment/list', 'CommentController@list')->name('comment.list')->middleware('auth');
+// コメントを承認する
+Route::post('/comment/approve/{id}', 'CommentController@approve')->name('comment.approve')->middleware('auth');
+// コメントを承認待ちへ戻す
+Route::post('/comment/back_approval_pending/{id}', 'CommentController@backApprovalPending')->name('comment.back_approval_pending')->middleware('auth');
+// コメントを削除する
+Route::post('/comment/delete/{id}', 'CommentController@delete')->name('comment.delete')->middleware('auth');

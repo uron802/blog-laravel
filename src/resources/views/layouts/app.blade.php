@@ -36,7 +36,7 @@
             </div>
         </header>
         <section id="wrapper" class='tile is-ancestor'>
-            <main class='tile is-parent'>
+            <main class='tile is-parent is-vertical'>
                 @yield('content')
             </main>
             <nav class='tile is-2 is-parent'>
