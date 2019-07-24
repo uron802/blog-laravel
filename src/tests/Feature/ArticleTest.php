@@ -4,14 +4,15 @@ namespace Tests\Feature;
 
 use App\Models\Article;
 use App\Models\User;
-use Faker\Generator as Faker;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArticleTest extends TestCase
 {
     use RefreshDatabase;
+
+    private $fakerJaJp;
+
     /**
      * A basic test example.
      *
@@ -20,10 +21,9 @@ class ArticleTest extends TestCase
     public function testStart()
     {
         // $this->assertTrue(true);
-
         $user = factory(User::class)->create();
         $article = factory(Article::class)->create();
-
+        $this->fakerJaJp = \Faker\Factory::create('ja_JP');
         $this->index();
         $this->nonAuth($article);
         $this->list($user);
@@ -79,63 +79,117 @@ class ArticleTest extends TestCase
 
     private function store($user)
     {
-        $response = $this->actingAs($user)->json('POST', '/article/store',
+        // バリデーションチェック
+        $okLengthTitle = $this->fakerJaJp->realText(191);
+        $ngLengthTitle = $this->fakerJaJp->realText(192);
+        $okLengthText = $this->fakerJaJp->realText(21845);
+        $ngLengthText = $this->fakerJaJp->realText(21846);
+        $okPublish = 1;
+        $ngPublish = null;
+        $this->storeValidateTest($user, "", $okLengthText, $okPublish);
+        $this->storeValidateTest($user, $okLengthTitle, "", $okPublish);
+        $this->storeValidateTest($user, $okLengthTitle, $okLengthText, "");
+        $this->storeValidateTest($user, null, $okLengthText, $okPublish);
+        $this->storeValidateTest($user, $okLengthTitle, null, $okPublish);
+        $this->storeValidateTest($user, $okLengthTitle, $okLengthText, null);
+        $this->storeValidateTest($user, $ngLengthTitle, $okLengthText, $okPublish);
+        $this->storeValidateTest($user, $okLengthTitle, $ngLengthText, $okPublish);
+        $this->storeValidateTest($user, $okLengthTitle, $okLengthText, $ngPublish);
+
+        // 正常ケース
+        $this->storeSuccessTest($user, $okLengthTitle, $okLengthText, 0);
+        $this->storeSuccessTest($user, $okLengthTitle, $okLengthText, 1);
+
+    }
+
+    private function storeValidateTest($user, $title, $text, $publish)
+    {
+        $response = $this->actingAs($user)->post('/article/store',
             [
-                'title' => 'testTitle1',
-                'text' => 'テスト1',
-                'publish' => 1,
+                'title' => $title,
+                'text' => $text,
+                'publish' => $publish,
             ]);
         $response->assertStatus(302);
-        $this->assertDatabaseHas('articles', [
-            'title' => 'testTitle1',
-            'text' => 'テスト1',
-            'publish' => 1,
+        $this->assertDatabaseMissing('articles', [
+            'title' => $title,
+            'text' => $text,
+            'publish' => $publish,
             'author' => $user->id
         ]);
+    }
 
-        $response = $this->actingAs($user)->json('POST', '/article/store',
+    private function storeSuccessTest($user, $title, $text, $publish)
+    {
+        $response = $this->actingAs($user)->post('/article/store',
             [
-                'title' => 'testTitle2',
-                'text' => 'テスト2',
-                'publish' => 0,
+                'title' => $title,
+                'text' => $text,
+                'publish' => $publish,
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
-            'title' => 'testTitle2',
-            'text' => 'テスト2',
-            'publish' => 0,
+            'title' => $title,
+            'text' => $text,
+            'publish' => $publish,
             'author' => $user->id
         ]);
     }
 
     private function update($user, $article)
     {
-        $response = $this->actingAs($user)->json('POST', '/article/update/' . $article->id,
-            [
-                'title' => 'testTitle3',
-                'text' => 'テスト3',
-                'publish' => 1,
-            ]);
-        $response->assertStatus(302);
-        $this->assertDatabaseHas('articles', [
-            'id' => $article->id,
-            'title' => 'testTitle3',
-            'text' => 'テスト3',
-            'publish' => 1
-        ]);
+        // バリデーションチェック
+        $okLengthTitle = $this->fakerJaJp->realText(191);
+        $ngLengthTitle = $this->fakerJaJp->realText(192);
+        $okLengthText = $this->fakerJaJp->realText(21845);
+        $ngLengthText = $this->fakerJaJp->realText(21846);
+        $okPublish = 1;
+        $ngPublish = null;
+        $this->updateValidateTest($user, $article, "", $okLengthText, $okPublish);
+        $this->updateValidateTest($user, $article, $okLengthTitle, "", $okPublish);
+        $this->updateValidateTest($user, $article, $okLengthTitle, $okLengthText, "");
+        $this->updateValidateTest($user, $article, null, $okLengthText, $okPublish);
+        $this->updateValidateTest($user, $article, $okLengthTitle, null, $okPublish);
+        $this->updateValidateTest($user, $article, $okLengthTitle, $okLengthText, null);
+        $this->updateValidateTest($user, $article, $ngLengthTitle, $okLengthText, $okPublish);
+        $this->updateValidateTest($user, $article, $okLengthTitle, $ngLengthText, $okPublish);
+        $this->updateValidateTest($user, $article, $okLengthTitle, $okLengthText, $ngPublish);
 
-        $response = $this->actingAs($user)->json('POST', '/article/update/' . $article->id,
+        // 正常ケース
+        $this->updateSuccessTest($user, $article, $okLengthTitle, $okLengthText, 0);
+        $this->updateSuccessTest($user, $article, $okLengthTitle, $okLengthText, 1);
+    }
+
+    private function updateValidateTest($user, $article, $title, $text, $publish)
+    {
+        $response = $this->actingAs($user)->post('/article/update/' . $article->id,
             [
-                'title' => 'testTitle4',
-                'text' => 'テスト4',
-                'publish' => 0,
+                'title' => $title,
+                'text' => $text,
+                'publish' => $publish,
+            ]);
+        $response->assertStatus(302);
+        $this->assertDatabaseMissing('articles', [
+            'title' => $title,
+            'text' => $text,
+            'publish' => $publish
+        ]);
+    }
+
+    private function updateSuccessTest($user, $article, $title, $text, $publish)
+    {
+        $response = $this->actingAs($user)->post('/article/update/' . $article->id,
+            [
+                'title' => $title,
+                'text' => $text,
+                'publish' => $publish,
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
             'id' => $article->id,
-            'title' => 'testTitle4',
-            'text' => 'テスト4',
-            'publish' => 0
+            'title' => $title,
+            'text' => $text,
+            'publish' => $publish
         ]);
     }
 
@@ -151,7 +205,7 @@ class ArticleTest extends TestCase
 
     private function backDraft($user, $article)
     {
-        $response = $this->actingAs($user)->json('POST', '/article/back/draft/' . $article->id);
+        $response = $this->actingAs($user)->post('/article/back/draft/' . $article->id);
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
             'id' => $article->id,
