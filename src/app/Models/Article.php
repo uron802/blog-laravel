@@ -9,8 +9,8 @@ class Article extends Model
     //
     protected $guarded = array('id');
     public static $rules = [
-        'title' => 'required',
-        'text' => 'required',
+        'title' => 'required|max:191',
+        'text' => 'required|max:21845',
         'publish' => 'boolean',
     ];
     public function scopePublishEqual($query, $str)
