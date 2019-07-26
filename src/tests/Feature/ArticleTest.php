@@ -82,8 +82,8 @@ class ArticleTest extends TestCase
         // バリデーションチェック
         $okLengthTitle = $this->fakerJaJp->realText(191);
         $ngLengthTitle = $this->fakerJaJp->realText(192);
-        $okLengthText = $this->fakerJaJp->realText(21845);
-        $ngLengthText = $this->fakerJaJp->realText(21846);
+        $okLengthText = $this->fakerJaJp->realText(16383);
+        $ngLengthText = $this->fakerJaJp->realText(16383);
         $okPublish = 1;
         $ngPublish = null;
         $this->storeValidateTest($user, "", $okLengthText, $okPublish);
@@ -141,8 +141,8 @@ class ArticleTest extends TestCase
         // バリデーションチェック
         $okLengthTitle = $this->fakerJaJp->realText(191);
         $ngLengthTitle = $this->fakerJaJp->realText(192);
-        $okLengthText = $this->fakerJaJp->realText(21845);
-        $ngLengthText = $this->fakerJaJp->realText(21846);
+        $okLengthText = $this->fakerJaJp->realText(16383);
+        $ngLengthText = $this->fakerJaJp->realText(16383);
         $okPublish = 1;
         $ngPublish = null;
         $this->updateValidateTest($user, $article, "", $okLengthText, $okPublish);
