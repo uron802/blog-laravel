@@ -10,8 +10,8 @@ class Comment extends Model
     protected $guarded = array('id');
 
     public static $rules = [
-        'contributor' => 'required',
-        'text' => 'required',
+        'contributor' => 'required|max:191',
+        'text' => 'required|max:16383',
     ];
     /**
      * コメントに関連する記事レコードを取得
