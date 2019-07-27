@@ -35,7 +35,7 @@ Route::post('/article/store', 'ArticleController@store')->name('article.store')-
 // 記事更新
 Route::post('/article/update/{id}', 'ArticleController@update')->name('article.update')->middleware('auth');
 // 記事削除
-Route::get('/article/delete/{id}', 'ArticleController@delete')->name('article.delete')->middleware('auth');
+Route::post('/article/delete/{id}', 'ArticleController@delete')->name('article.delete')->middleware('auth');
 // 下書きへ戻す
 Route::post('/article/back/draft/{id}', 'ArticleController@backDraft')->name('article.back.draft')->middleware('auth');
 // コメント一覧

@@ -210,9 +210,9 @@ class ArticleTest extends TestCase
     private function deleteTest($user, $article)
     {
         // メソッド名にdeleteは使用できない？
-        $response = $this->actingAs($user)->get('/article/delete/dummy');
+        $response = $this->actingAs($user)->post('/article/delete/dummy');
         $response->assertStatus(302);
-        $response = $this->actingAs($user)->get('/article/delete/' . $article->id);
+        $response = $this->actingAs($user)->post('/article/delete/' . $article->id);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
             'id' => $article->id
