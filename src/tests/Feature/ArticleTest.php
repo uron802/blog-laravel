@@ -14,26 +14,26 @@ class ArticleTest extends TestCase
     private $fakerJaJp;
 
     /**
-     * A basic test example.
+     * start test.
      *
      * @return void
      */
     public function testStart()
     {
-        // $this->assertTrue(true);
         $user = factory(User::class)->create();
-        $article = factory(Article::class)->create();
+        $articles = factory(Article::class, 100)->create();
         $this->fakerJaJp = \Faker\Factory::create('ja_JP');
+
         $this->index();
-        $this->nonAuth($article);
+        $this->nonAuth($articles[0]);
         $this->list($user);
-        $this->show($article);
+        $this->show($articles[0]);
         $this->create($user);
-        $this->edit($user, $article);
+        $this->edit($user, $articles[0]);
         $this->store($user);
-        $this->update($user, $article);
-        $this->backDraft($user, $article);
-        $this->deleteTest($user, $article);
+        $this->update($user, $articles[0]);
+        $this->backDraft($user, $articles[0]);
+        $this->deleteTest($user, $articles[0]);
     }
 
     private function nonAuth($article)
@@ -155,9 +155,22 @@ class ArticleTest extends TestCase
         $this->updateValidateTest($user, $article, $okLengthTitle, $ngLengthText, $okPublish);
         $this->updateValidateTest($user, $article, $okLengthTitle, $okLengthText, $ngPublish);
 
+        $this->updateNonExistTest($user, $okLengthTitle, $okLengthText, $okPublish);
+
         // 正常ケース
         $this->updateSuccessTest($user, $article, $okLengthTitle, $okLengthText, 0);
         $this->updateSuccessTest($user, $article, $okLengthTitle, $okLengthText, 1);
+    }
+
+    private function updateNonExistTest($user, $title, $text, $publish)
+    {
+        $response = $this->actingAs($user)->post('/article/update/dummy',
+            [
+                'title' => $title,
+                'text' => $text,
+                'publish' => $publish,
+            ]);
+        $response->assertStatus(302);
     }
 
     private function updateValidateTest($user, $article, $title, $text, $publish)
@@ -170,6 +183,7 @@ class ArticleTest extends TestCase
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
+            'id' => $article->id,
             'title' => $title,
             'text' => $text,
             'publish' => $publish
@@ -196,6 +210,8 @@ class ArticleTest extends TestCase
     private function deleteTest($user, $article)
     {
         // メソッド名にdeleteは使用できない？
+        $response = $this->actingAs($user)->get('/article/delete/dummy');
+        $response->assertStatus(302);
         $response = $this->actingAs($user)->get('/article/delete/' . $article->id);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
@@ -205,6 +221,8 @@ class ArticleTest extends TestCase
 
     private function backDraft($user, $article)
     {
+        $response = $this->actingAs($user)->post('/article/back/draft/dummy');
+        $response->assertStatus(302);
         $response = $this->actingAs($user)->post('/article/back/draft/' . $article->id);
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
