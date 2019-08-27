@@ -11,7 +11,17 @@ class ArticleTest extends TestCase
 {
     use RefreshDatabase;
 
+    private $user;
+    private $articles;
     private $fakerJaJp;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->user = factory(User::class)->create();
+        $this->articles = factory(Article::class, 100)->create();
+        $this->fakerJaJp = \Faker\Factory::create('ja_JP');
+    }
 
     /**
      * start test.
@@ -20,20 +30,16 @@ class ArticleTest extends TestCase
      */
     public function testStart()
     {
-        $user = factory(User::class)->create();
-        $articles = factory(Article::class, 100)->create();
-        $this->fakerJaJp = \Faker\Factory::create('ja_JP');
-
         $this->index();
-        $this->nonAuth($articles[0]);
-        $this->list($user);
-        $this->show($articles[0]);
-        $this->create($user);
-        $this->edit($user, $articles[0]);
-        $this->store($user);
-        $this->update($user, $articles[0]);
-        $this->backDraft($user, $articles[0]);
-        $this->deleteTest($user, $articles[0]);
+        $this->nonAuth($this->articles[0]);
+        $this->list($this->user);
+        $this->show($this->articles[0]);
+        $this->create($this->user);
+        $this->edit($this->user, $this->articles[0]);
+        $this->store($this->user);
+        $this->update($this->user, $this->articles[0]);
+        $this->backDraft($this->user, $this->articles[0]);
+        $this->deleteTest($this->user, $this->articles[0]);
     }
 
     private function nonAuth($article)
