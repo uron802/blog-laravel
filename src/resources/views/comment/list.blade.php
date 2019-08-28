@@ -19,21 +19,21 @@
             <td><span class='tag'>未承認</span></td>
             @endif
             <td>{{ $comment->contributor }}</td>
-            <td><a href="{{ route('article.show', ['id' => $comment->article["id"]]) }}">{{ $comment->article["title"] }}</a></td>
+            <td><a href="{{ route('article.show', ['article' => $comment->article]) }}">{{ $comment->article["title"] }}</a></td>
             <td>{!! nl2br(e($comment->text)) !!}</td>
             <td>{{ $comment->created_at }}</td>
             @if($comment->approval_flg)
-            <form action="{{ route('comment.back_approval_pending', ['id' =>  $comment->id]) }}" method='post' id="comment-form">
+            <form action="{{ route('comment.back_approval_pending', ['comment' =>  $comment]) }}" method='post' id="comment-form">
             @csrf
             <td><button class='button'>承認待ちへ戻す</button></td>
             </form>
             @else
-            <form action="{{ route('comment.approve', ['id' => $comment->id]) }}" method='post' id="comment-form">
+            <form action="{{ route('comment.approve', ['comment' => $comment]) }}" method='post' id="comment-form">
             @csrf
             <td><button class='button is-primary'>承認する</button></td>
             </form>
             @endif
-            <form action="{{ route('comment.delete', ['id' => $comment->id]) }}" method='post' id="comment-form">
+            <form action="{{ route('comment.delete', ['comment' => $comment]) }}" method='post' id="comment-form">
                 @csrf
                 <td><button class='button is-danger'>削除する</button></td>
             </form>

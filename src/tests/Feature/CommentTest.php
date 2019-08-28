@@ -101,7 +101,7 @@ class CommentTest extends TestCase
     private function approve($user, $comment)
     {
         $response = $this->actingAs($user)->post('/comment/approve/dummy');
-        $response->assertStatus(302);
+        $response->assertStatus(404);
 
         $response = $this->actingAs($user)->post('/comment/approve/' . $comment->id);
         $response->assertStatus(302);
@@ -115,7 +115,7 @@ class CommentTest extends TestCase
     private function backApprovalPending($user, $comment)
     {
         $response = $this->actingAs($user)->post('/comment/back_approval_pending/dummy');
-        $response->assertStatus(302);
+        $response->assertStatus(404);
 
         $response = $this->actingAs($user)->post('/comment/back_approval_pending/' . $comment->id);
         $response->assertStatus(302);
@@ -129,7 +129,7 @@ class CommentTest extends TestCase
     private function deleteTest($user, $comment)
     {
         $response = $this->actingAs($user)->post('/comment/delete/dummy');
-        $response->assertStatus(302);
+        $response->assertStatus(404);
 
         $response = $this->actingAs($user)->post('/comment/delete/' . $comment->id);
         $response->assertStatus(302);

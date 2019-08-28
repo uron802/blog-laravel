@@ -21,19 +21,17 @@ class ArticleController extends Controller
         $articles = Article::orderBy('post_date_time', 'desc')->simplePaginate(10);
         return view('article.list', ["articles" => $articles]);
     }
-    public function show($id, Request $request)
+    public function show(Article $article, Request $request)
     {
-        $article = Article::find($id);
-        $comments = Comment::where('parent_article_id', $id)->get();
+        $comments = Comment::where('parent_article_id', $article->id)->get();
         return view('article.show', ['article' => $article, 'comments' => $comments]);
     }
     public function create(Request $request)
     {
         return view('article.create');
     }
-    public function edit($id, Request $request)
+    public function edit(Article $article, Request $request)
     {
-        $article = Article::find($id);
         return view('article.edit', ['article' => $article]);
     }
     public function store(Request $request)
@@ -50,14 +48,12 @@ class ArticleController extends Controller
 
         return redirect()->route('article.list');
     }
-    public function update($id, Request $request)
+    public function update(Article $article, Request $request)
     {
         $this->validate($request, Article::$rules);
 
         $form = $request->all();
         unset($form['_token']);
-
-        $article = Article::find($id);
 
         if($article != null)
         {
@@ -66,9 +62,8 @@ class ArticleController extends Controller
 
         return redirect()->route('article.list');
     }
-    public function delete($id, Request $request)
+    public function delete(Article $article, Request $request)
     {
-        $article = Article::find($id);
 
         if($article != null)
         {
@@ -78,12 +73,10 @@ class ArticleController extends Controller
         return redirect()->route('article.list');
     }
 
-    public function backDraft($id, Request $request)
+    public function backDraft(Article $article, Request $request)
     {
         $form = $request->all();
         unset($form['_token']);
-
-        $article = Article::find($id);
 
         if($article != null)
         {

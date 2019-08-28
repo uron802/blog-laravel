@@ -5,7 +5,7 @@
         </p>
         <ul class="menu-list">
             @foreach ($newArticles as $newArticle)
-            <li><a href='{{ route("article.show", ["id" => $newArticle->id]) }}'>{{ $newArticle->title }}</a></li>
+            <li><a href='{{ route("article.show", ["article" => $newArticle]) }}'>{{ $newArticle->title }}</a></li>
             @endforeach
         </ul>
     </div>

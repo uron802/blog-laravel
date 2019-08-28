@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="{{ route('article.update', ['id' => $article->id]) }}" method='post' id='update-form'>
+<form action="{{ route('article.update', ['article' => $article]) }}" method='post' id='update-form'>
     @csrf
     <div class="field">
         <p class="control">
@@ -31,7 +31,7 @@
     @endif
     </div>
 </form>
-<form action="{{ route('article.back.draft', ['id' => $article->id]) }}" method='post' id='back-draft-form'>
+<form action="{{ route('article.back.draft', ['article' => $article]) }}" method='post' id='back-draft-form'>
     @csrf
 </form>
 

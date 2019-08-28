@@ -19,13 +19,13 @@
             @endif
             <td>{{ $article->title }}</td>
             <td>{{ $article->post_date_time }}</td>
-            <td><a class='button is-primary' href="{{ route('article.edit', ['id' => $article->id]) }}">編集する</a></td>
-            <form action="{{ route('article.delete', ['id' => $article->id]) }}" method='post' id="article-form">
+            <td><a class='button is-primary' href="{{ route('article.edit', ['article' => $article]) }}">編集する</a></td>
+            <form action="{{ route('article.delete', ['article' => $article]) }}" method='post' id="article-form">
                 @csrf
                 <td><button class='button is-danger'>削除する</button></td>
             </form>
             @if($article->publish == "1")
-            <td><a class='button' href="{{ route('article.show', ['id' => $article->id]) }}">記事を見る</a></td>
+            <td><a class='button' href="{{ route('article.show', ['article' => $article]) }}">記事を見る</a></td>
             @else
             <td></td>
             @endif

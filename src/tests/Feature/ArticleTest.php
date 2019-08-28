@@ -176,7 +176,7 @@ class ArticleTest extends TestCase
                 'text' => $text,
                 'publish' => $publish,
             ]);
-        $response->assertStatus(302);
+        $response->assertStatus(404);
     }
 
     private function updateValidateTest($user, $article, $title, $text, $publish)
@@ -217,7 +217,7 @@ class ArticleTest extends TestCase
     {
         // メソッド名にdeleteは使用できない？
         $response = $this->actingAs($user)->post('/article/delete/dummy');
-        $response->assertStatus(302);
+        $response->assertStatus(404);
         $response = $this->actingAs($user)->post('/article/delete/' . $article->id);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
@@ -228,7 +228,7 @@ class ArticleTest extends TestCase
     private function backDraft($user, $article)
     {
         $response = $this->actingAs($user)->post('/article/back/draft/dummy');
-        $response->assertStatus(302);
+        $response->assertStatus(404);
         $response = $this->actingAs($user)->post('/article/back/draft/' . $article->id);
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [

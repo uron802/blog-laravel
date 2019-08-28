@@ -9,7 +9,7 @@
         {!! $article->text !!}
     </div>
     <div class="box">
-        <form action="{{ route('comment.store', ['id' => $article->id]) }}" method='post' id="comment-form">
+        <form action="{{ route('comment.store', ['article' => $article]) }}" method='post' id="comment-form">
             @csrf
             <article class="media">
                 <div class="media-content">
