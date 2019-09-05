@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleFormRequest;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -34,9 +35,8 @@ class ArticleController extends Controller
     {
         return view('article.edit', ['article' => $article]);
     }
-    public function store(Request $request)
+    public function store(ArticleFormRequest $request)
     {
-        $this->validate($request, Article::$rules);
 
         $article = new Article;
         $article->title = $request->title;
@@ -48,9 +48,8 @@ class ArticleController extends Controller
 
         return redirect()->route('article.list');
     }
-    public function update(Article $article, Request $request)
+    public function update(Article $article, ArticleFormRequest $request)
     {
-        $this->validate($request, Article::$rules);
 
         $form = $request->all();
         unset($form['_token']);

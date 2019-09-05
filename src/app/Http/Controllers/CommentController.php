@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentFormRequest;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -10,9 +11,8 @@ use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
     //
-    public function store(Article $article, Request $request)
+    public function store(Article $article, CommentFormRequest $request)
     {
-        $this->validate($request, Comment::$rules);
 
         $comment = new Comment;
         $comment->contributor = $request->contributor;
