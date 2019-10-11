@@ -9,3 +9,11 @@ div.button-area {
 span.post-date-time {
     margin-bottom: 30px;
 }
+
+div.tab-page {
+    display: none;
+}
+
+div.is-active {
+    display: block;
+}

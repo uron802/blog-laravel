@@ -8,4 +8,10 @@ $(document).ready(function() {
         $(".navbar-menu").toggleClass("is-active");
 
     });
+
+    $(".tab").click(function() {
+        var $id = $(this).attr('id');
+        $("li.tab,div.tab-page").removeClass("is-active");
+        $("#" + $id + ",div.tab-page." + $id).toggleClass("is-active");
+    });
 });

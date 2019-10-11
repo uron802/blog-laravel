@@ -10,17 +10,41 @@ use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
+
+    const PRIVATE_ARTICLE = '0';
+    const PUBLISH_ARTICLE = '1';
+
     //
     public function index(Request $request)
     {
         // TODO 1ページに表示させたい記事数を設定可能にする
-        $articles = Article::publishEqual('1')->orderBy('post_date_time', 'desc')->simplePaginate(1);
+        $articles = Article::publishEqual(self::PRIVATE_ARTICLE)->orderBy('post_date_time', 'desc')->simplePaginate(1);
         return view('article.index', ["articles" => $articles]);
     }
     public function list(Request $request)
     {
         $articles = Article::orderBy('post_date_time', 'desc')->simplePaginate(10);
-        return view('article.list', ["articles" => $articles]);
+        $privateArticles = Article::publishEqual(self::PRIVATE_ARTICLE)->orderBy('post_date_time', 'desc')->simplePaginate(10);
+        $publishArticles = Article::publishEqual(self::PUBLISH_ARTICLE)->orderBy('post_date_time', 'desc')->simplePaginate(10);
+        return view('article.list', [
+            "articles" => [
+                [
+                    "key" => "all",
+                    "value" => $articles,
+                    "tab_page_class" => ""
+                ],
+                [
+                    "key" => "private",
+                    "value" => $privateArticles,
+                    "tab_page_class" => ""
+                ],
+                [
+                    "key" => "publish",
+                    "value" => $publishArticles,
+                    "tab_page_class" => "is-active"
+                ],
+            ]
+        ]);
     }
     public function show(Article $article, Request $request)
     {
