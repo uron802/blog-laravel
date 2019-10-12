@@ -18,7 +18,7 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         // TODO 1ページに表示させたい記事数を設定可能にする
-        $articles = Article::publishEqual(self::PRIVATE_ARTICLE)->orderBy('post_date_time', 'desc')->simplePaginate(1);
+        $articles = Article::publishEqual(self::PUBLISH_ARTICLE)->orderBy('post_date_time', 'desc')->simplePaginate(1);
         return view('article.index', ["articles" => $articles]);
     }
     public function list(Request $request)
