@@ -13,6 +13,10 @@ class Comment extends Model
         'contributor' => 'required|max:191',
         'text' => 'required|max:16383',
     ];
+    public function scopeApprovalFlgEqual($query, $bool)
+    {
+        return $query->where('approval_flg', $bool);
+    }
     /**
      * コメントに関連する記事レコードを取得
      */

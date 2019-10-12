@@ -27,7 +27,27 @@ class CommentController extends Controller
     public function list(Request $request)
     {
         $comments = Comment::orderBy('created_at', 'desc')->simplePaginate(10);
-        return view('comment.list', ["comments" => $comments]);
+        $approvalComments = Comment::approvalFlgEqual(true)->orderBy('created_at', 'desc')->simplePaginate(10);
+        $notApprovalComments = Comment::approvalFlgEqual(false)->orderBy('created_at', 'desc')->simplePaginate(10);
+        return view('comment.list', [
+            "comments" => [
+                [
+                    "key" => "all",
+                    "value" => $comments,
+                    "tab_page_class" => ""
+                ],
+                [
+                    "key" => "not-approval",
+                    "value" => $notApprovalComments,
+                    "tab_page_class" => ""
+                ],
+                [
+                    "key" => "approval",
+                    "value" => $approvalComments,
+                    "tab_page_class" => "is-active"
+                ],
+            ]
+        ]);
     }
 
     public function approve(Comment $comment, Request $request)
