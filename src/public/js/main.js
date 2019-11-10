@@ -14,4 +14,27 @@ $(document).ready(function() {
         $("li.tab,div.tab-page").removeClass("is-active");
         $("#" + $id + ",div.tab-page." + $id).toggleClass("is-active");
     });
+
+    $("#bt-add-category").click(function() {
+        tag = window.prompt("カテゴリー名を入力してください", "");
+
+        if (tag != "" && tag != null) {
+            $("#new-category-field").append(
+                '<div class="control">' +
+                '    <div class="tags has-addons">' +
+                '        <a class="tag is-link">' +
+                tag +
+                '        </a>' +
+                '        <a class="tag is-delete"></a>' +
+                '        <input type="hidden" name="new-tag-name[]" value="' + tag + '">' +
+                '    </div>' +
+                '</div>'
+            );
+
+            $(".tag.is-delete").off("click");
+            $(".tag.is-delete").click(function() {
+                $(this).parents(".control").remove();
+            });
+        }
+    });
 });

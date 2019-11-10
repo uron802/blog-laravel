@@ -27,5 +27,8 @@ class ArticleServiceProvider extends ServiceProvider
         view()->composer(
             'layouts.sidebar', 'App\Http\Composers\NewArticleComposers'
         );
+        view()->composer(
+            'layouts.sidebar', 'App\Http\Composers\SidebarTagComposers'
+        );
     }
 }

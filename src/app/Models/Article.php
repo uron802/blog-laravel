@@ -24,4 +24,11 @@ class Article extends Model
     {
         return $this->hasMany('App\Models\Comment', 'parent_article_id');
     }
+    /**
+     *記事のタグを取得
+     */
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag');
+    }
 }

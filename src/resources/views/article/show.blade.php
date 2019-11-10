@@ -5,6 +5,16 @@
 <div class="tile is-child box">
     <h2 class='title'>{{ $article->title }}</h2>
     <span class='tag is-info post-date-time'>{{ $article->post_date_time }}</span>
+    <div class="field is-grouped is-grouped-multiline">
+        @forelse ($tags as $tag)
+        <div class="control">
+            <div class="tags has-addons">
+                <a class="tag is-link">{{ $tag->name }}</a>
+            </div>
+        </div>
+        @empty
+        @endforelse
+    </div>
     <div class="article-text content">
         {!! $article->text !!}
     </div>
