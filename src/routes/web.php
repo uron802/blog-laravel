@@ -46,3 +46,11 @@ Route::post('/comment/approve/{comment}', 'CommentController@approve')->name('co
 Route::post('/comment/back_approval_pending/{comment}', 'CommentController@backApprovalPending')->name('comment.back_approval_pending')->middleware('auth');
 // コメントを削除する
 Route::post('/comment/delete/{comment}', 'CommentController@delete')->name('comment.delete')->middleware('auth');
+// カテゴリー一覧
+Route::get('/tag/list', 'TagController@list')->name('tag.list')->middleware('auth');
+// カテゴリー編集
+Route::get('/tag/edit/{tag}', 'TagController@edit')->name('tag.edit')->middleware('auth');
+// カテゴリー更新
+Route::post('/tag/update/{tag}', 'TagController@update')->name('tag.update')->middleware('auth');
+// カテゴリー削除
+Route::post('/tag/delete/{tag}', 'TagController@delete')->name('tag.delete')->middleware('auth');

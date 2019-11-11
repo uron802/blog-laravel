@@ -31,6 +31,9 @@
                     <a class="navbar-item" href="{{ route('comment.list') }}">
                         コメント一覧
                     </a>
+                    <a class="navbar-item" href="{{ route('tag.list') }}">
+                        カテゴリー一覧
+                    </a>
                 </div>
             </div>
             @endauth
