@@ -5,8 +5,8 @@ namespace Tests\Feature;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
@@ -49,8 +49,8 @@ class CommentTest extends TestCase
         $okLengthText = $this->fakerJaJp->realText(16383);
         $ngLengthText = $this->fakerJaJp->realText(16384);
 
-        $this->storeValidateTest($article, "", $okLengthText);
-        $this->storeValidateTest($article, $okLengthContributor, "");
+        $this->storeValidateTest($article, '', $okLengthText);
+        $this->storeValidateTest($article, $okLengthContributor, '');
         $this->storeValidateTest($article, null, $okLengthText);
         $this->storeValidateTest($article, $okLengthContributor, null);
         $this->storeValidateTest($article, $ngLengthContributor, $okLengthText);
@@ -62,40 +62,40 @@ class CommentTest extends TestCase
 
     private function storeValidateTest($article, $contributor, $text)
     {
-        $response = $this->post('/article/' . $article->id . '/comment/store',
+        $response = $this->post('/article/'.$article->id.'/comment/store',
             [
                 'contributor' => $contributor,
-                'text' => $text
+                'text'        => $text,
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('comments', [
-            'contributor' => $contributor,
-            'text' => $text,
+            'contributor'       => $contributor,
+            'text'              => $text,
             'parent_article_id' => $article->id,
-            'approval_flg' => false
+            'approval_flg'      => false,
         ]);
     }
 
     private function storeSuccessTest($article, $contributor, $text)
     {
-        $response = $this->post('/article/' . $article->id . '/comment/store',
+        $response = $this->post('/article/'.$article->id.'/comment/store',
             [
                 'contributor' => $contributor,
-                'text' => $text
+                'text'        => $text,
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseHas('comments', [
-            'contributor' => $contributor,
-            'text' => $text,
+            'contributor'       => $contributor,
+            'text'              => $text,
             'parent_article_id' => $article->id,
-            'approval_flg' => false
+            'approval_flg'      => false,
         ]);
     }
 
     private function list($user)
     {
         $response = $this->actingAs($user)->get('/comment/list');
-        $response->assertStatus(200)->assertViewIs("comment.list");
+        $response->assertStatus(200)->assertViewIs('comment.list');
     }
 
     private function approve($user, $comment)
@@ -103,12 +103,12 @@ class CommentTest extends TestCase
         $response = $this->actingAs($user)->post('/comment/approve/dummy');
         $response->assertStatus(404);
 
-        $response = $this->actingAs($user)->post('/comment/approve/' . $comment->id);
+        $response = $this->actingAs($user)->post('/comment/approve/'.$comment->id);
         $response->assertStatus(302);
         $this->assertDatabaseHas('comments', [
-            'id' => $comment->id,
-            'approval_flg' => true,
-            'approval_user_id' => $user->id
+            'id'               => $comment->id,
+            'approval_flg'     => true,
+            'approval_user_id' => $user->id,
         ]);
     }
 
@@ -117,12 +117,12 @@ class CommentTest extends TestCase
         $response = $this->actingAs($user)->post('/comment/back_approval_pending/dummy');
         $response->assertStatus(404);
 
-        $response = $this->actingAs($user)->post('/comment/back_approval_pending/' . $comment->id);
+        $response = $this->actingAs($user)->post('/comment/back_approval_pending/'.$comment->id);
         $response->assertStatus(302);
         $this->assertDatabaseHas('comments', [
-            'id' => $comment->id,
-            'approval_flg' => false,
-            'approval_user_id' => null
+            'id'               => $comment->id,
+            'approval_flg'     => false,
+            'approval_user_id' => null,
         ]);
     }
 
@@ -131,10 +131,10 @@ class CommentTest extends TestCase
         $response = $this->actingAs($user)->post('/comment/delete/dummy');
         $response->assertStatus(404);
 
-        $response = $this->actingAs($user)->post('/comment/delete/' . $comment->id);
+        $response = $this->actingAs($user)->post('/comment/delete/'.$comment->id);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('comments', [
-            'id' => $comment->id
+            'id' => $comment->id,
         ]);
     }
 }

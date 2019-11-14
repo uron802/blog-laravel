@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
-
     const PRIVATE_ARTICLE = '0';
     const PUBLISH_ARTICLE = '1';
 
@@ -20,88 +19,95 @@ class ArticleController extends Controller
     {
         // TODO 1ページに表示させたい記事数を設定可能にする
         $tagId = $request->query('tag');
-        $tag = Tag::where("id", "=", $tagId)->first();
+        $tag = Tag::where('id', '=', $tagId)->first();
         if ($tag == null) {
-            $articles = Article::publishEqual(self::PUBLISH_ARTICLE)->orderBy('post_date_time', 'desc')->with("tags")->simplePaginate(1);
+            $articles = Article::publishEqual(self::PUBLISH_ARTICLE)->orderBy('post_date_time', 'desc')->with('tags')->simplePaginate(1);
 
-            return view('article.index', ["articles" => $articles]);
-        }else{
+            return view('article.index', ['articles' => $articles]);
+        } else {
             $tagId = $request->query('tag');
             $articles = Article::publishEqual(self::PUBLISH_ARTICLE)->whereHas('tags', function ($query) use ($tagId) {
                 $query->where('id', '=', $tagId);
-            })->orderBy('post_date_time', 'desc')->with("tags")->simplePaginate(1);
+            })->orderBy('post_date_time', 'desc')->with('tags')->simplePaginate(1);
 
-            return view('article.index', ["articles" => $articles, "tag" => $tag]);
+            return view('article.index', ['articles' => $articles, 'tag' => $tag]);
         }
     }
+
     public function list(Request $request)
     {
         $articles = Article::orderBy('post_date_time', 'desc')->simplePaginate(10);
         $privateArticles = Article::publishEqual(self::PRIVATE_ARTICLE)->orderBy('post_date_time', 'desc')->simplePaginate(10);
         $publishArticles = Article::publishEqual(self::PUBLISH_ARTICLE)->orderBy('post_date_time', 'desc')->simplePaginate(10);
+
         return view('article.list', [
-            "articles" => [
+            'articles' => [
                 [
-                    "key" => "all",
-                    "value" => $articles,
-                    "tab_page_class" => ""
+                    'key'            => 'all',
+                    'value'          => $articles,
+                    'tab_page_class' => '',
                 ],
                 [
-                    "key" => "private",
-                    "value" => $privateArticles,
-                    "tab_page_class" => ""
+                    'key'            => 'private',
+                    'value'          => $privateArticles,
+                    'tab_page_class' => '',
                 ],
                 [
-                    "key" => "publish",
-                    "value" => $publishArticles,
-                    "tab_page_class" => "is-active"
+                    'key'            => 'publish',
+                    'value'          => $publishArticles,
+                    'tab_page_class' => 'is-active',
                 ],
-            ]
+            ],
         ]);
     }
+
     public function show(Article $article, Request $request)
     {
         $comments = Comment::where('parent_article_id', $article->id)->get();
         $tags = $article->tags()->get();
+
         return view('article.show', ['article' => $article, 'comments' => $comments, 'tags' => $tags]);
     }
+
     public function create(Request $request)
     {
         $allTags = Tag::all();
+
         return view('article.create', ['all_tags' => $allTags]);
     }
+
     public function edit(Article $article, Request $request)
     {
         $allTags = Tag::all();
         $tags = $article->tags()->get();
+
         return view('article.edit', ['article' => $article, 'tags' => $tags, 'all_tags' => $allTags]);
     }
+
     public function store(ArticleFormRequest $request)
     {
-
-        $article = new Article;
+        $article = new Article();
         $article->title = $request->title;
         $article->text = $request->text;
         $article->publish = $request->publish;
         $article->author = Auth::user()->id;
-        $article->post_date_time = date("Y/m/d H:i:s");
+        $article->post_date_time = date('Y/m/d H:i:s');
         $article->save();
 
         $this->storeTag($request, $article);
 
         return redirect()->route('article.list');
     }
+
     public function update(Article $article, ArticleFormRequest $request)
     {
-
         $article->title = $request->title;
         $article->text = $request->text;
         $article->publish = $request->publish;
         $article->author = Auth::user()->id;
-        $article->post_date_time = date("Y/m/d H:i:s");
+        $article->post_date_time = date('Y/m/d H:i:s');
 
-        if($article != null)
-        {
+        if ($article != null) {
             $article->save();
 
             $this->storeTag($request, $article);
@@ -109,11 +115,10 @@ class ArticleController extends Controller
 
         return redirect()->route('article.list');
     }
+
     public function delete(Article $article, Request $request)
     {
-
-        if($article != null)
-        {
+        if ($article != null) {
             $article->tags()->detach();
             $article->delete();
         }
@@ -126,8 +131,7 @@ class ArticleController extends Controller
         $form = $request->all();
         unset($form['_token']);
 
-        if($article != null)
-        {
+        if ($article != null) {
             $article->publish = '0';
             $article->fill($form)->save();
         }
@@ -149,7 +153,7 @@ class ArticleController extends Controller
         $newTagNames = $request->input('new-tag-name');
         if ($newTagNames != null) {
             foreach ($newTagNames as $newTagName) {
-                $newTag = new Tag;
+                $newTag = new Tag();
                 $newTag->name = $newTagName;
                 $newTag->save();
                 $article->tags()->save($newTag);

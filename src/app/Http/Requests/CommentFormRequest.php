@@ -26,7 +26,7 @@ class CommentFormRequest extends FormRequest
         return [
             //
             'contributor' => 'required|max:191',
-            'text' => 'required|max:16383',
+            'text'        => 'required|max:16383',
         ];
     }
 }

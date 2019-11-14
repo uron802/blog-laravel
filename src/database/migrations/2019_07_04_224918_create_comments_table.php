@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCommentsTable extends Migration
 {
@@ -14,12 +14,12 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->increments('id')->comment("コメントID");
-            $table->unsignedInteger('parent_article_id')->comment("親記事ID");
-            $table->string('contributor')->comment("投稿者");
-            $table->text('text')->comment("本文");
-            $table->boolean('approval_flg')->comment("承認フラグ");
-            $table->unsignedInteger('approval_user_id')->nullable()->comment("承認ユーザID");
+            $table->increments('id')->comment('コメントID');
+            $table->unsignedInteger('parent_article_id')->comment('親記事ID');
+            $table->string('contributor')->comment('投稿者');
+            $table->text('text')->comment('本文');
+            $table->boolean('approval_flg')->comment('承認フラグ');
+            $table->unsignedInteger('approval_user_id')->nullable()->comment('承認ユーザID');
             $table->timestamps();
         });
     }

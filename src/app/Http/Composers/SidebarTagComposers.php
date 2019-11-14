@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Composers;
 
 use App\Models\Tag;
