@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Article;
 use App\Models\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ArticleTest extends TestCase
 {
@@ -49,38 +49,38 @@ class ArticleTest extends TestCase
         $response->assertStatus(302);
         $response = $this->get('/article/create');
         $response->assertStatus(302);
-        $response = $this->get('/article/edit/' . $article->id);
+        $response = $this->get('/article/edit/'.$article->id);
         $response->assertStatus(302);
     }
 
     private function index()
     {
         $response = $this->get('/');
-        $response->assertStatus(200)->assertViewIs("article.index");
+        $response->assertStatus(200)->assertViewIs('article.index');
     }
 
     private function list($user)
     {
         $response = $this->actingAs($user)->get('/article/list');
-        $response->assertStatus(200)->assertViewIs("article.list");
+        $response->assertStatus(200)->assertViewIs('article.list');
     }
 
     private function show($article)
     {
-        $response = $this->get('/article/show/' . $article->id);
-        $response->assertStatus(200)->assertViewIs("article.show");
+        $response = $this->get('/article/show/'.$article->id);
+        $response->assertStatus(200)->assertViewIs('article.show');
     }
 
     private function create($user)
     {
         $response = $this->actingAs($user)->get('/article/create');
-        $response->assertStatus(200)->assertViewIs("article.create");
+        $response->assertStatus(200)->assertViewIs('article.create');
     }
 
     private function edit($user, $article)
     {
-        $response = $this->actingAs($user)->get('/article/edit/' . $article->id);
-        $response->assertStatus(200)->assertViewIs("article.edit");
+        $response = $this->actingAs($user)->get('/article/edit/'.$article->id);
+        $response->assertStatus(200)->assertViewIs('article.edit');
     }
 
     private function store($user)
@@ -92,9 +92,9 @@ class ArticleTest extends TestCase
         $ngLengthText = $this->fakerJaJp->realText(16384);
         $okPublish = 1;
         $ngPublish = null;
-        $this->storeValidateTest($user, "", $okLengthText, $okPublish);
-        $this->storeValidateTest($user, $okLengthTitle, "", $okPublish);
-        $this->storeValidateTest($user, $okLengthTitle, $okLengthText, "");
+        $this->storeValidateTest($user, '', $okLengthText, $okPublish);
+        $this->storeValidateTest($user, $okLengthTitle, '', $okPublish);
+        $this->storeValidateTest($user, $okLengthTitle, $okLengthText, '');
         $this->storeValidateTest($user, null, $okLengthText, $okPublish);
         $this->storeValidateTest($user, $okLengthTitle, null, $okPublish);
         $this->storeValidateTest($user, $okLengthTitle, $okLengthText, null);
@@ -105,23 +105,22 @@ class ArticleTest extends TestCase
         // 正常ケース
         $this->storeSuccessTest($user, $okLengthTitle, $okLengthText, 0);
         $this->storeSuccessTest($user, $okLengthTitle, $okLengthText, 1);
-
     }
 
     private function storeValidateTest($user, $title, $text, $publish)
     {
         $response = $this->actingAs($user)->post('/article/store',
             [
-                'title' => $title,
-                'text' => $text,
+                'title'   => $title,
+                'text'    => $text,
                 'publish' => $publish,
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
-            'title' => $title,
-            'text' => $text,
+            'title'   => $title,
+            'text'    => $text,
             'publish' => $publish,
-            'author' => $user->id
+            'author'  => $user->id,
         ]);
     }
 
@@ -129,16 +128,16 @@ class ArticleTest extends TestCase
     {
         $response = $this->actingAs($user)->post('/article/store',
             [
-                'title' => $title,
-                'text' => $text,
+                'title'   => $title,
+                'text'    => $text,
                 'publish' => $publish,
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
-            'title' => $title,
-            'text' => $text,
+            'title'   => $title,
+            'text'    => $text,
             'publish' => $publish,
-            'author' => $user->id
+            'author'  => $user->id,
         ]);
     }
 
@@ -151,9 +150,9 @@ class ArticleTest extends TestCase
         $ngLengthText = $this->fakerJaJp->realText(16384);
         $okPublish = 1;
         $ngPublish = null;
-        $this->updateValidateTest($user, $article, "", $okLengthText, $okPublish);
-        $this->updateValidateTest($user, $article, $okLengthTitle, "", $okPublish);
-        $this->updateValidateTest($user, $article, $okLengthTitle, $okLengthText, "");
+        $this->updateValidateTest($user, $article, '', $okLengthText, $okPublish);
+        $this->updateValidateTest($user, $article, $okLengthTitle, '', $okPublish);
+        $this->updateValidateTest($user, $article, $okLengthTitle, $okLengthText, '');
         $this->updateValidateTest($user, $article, null, $okLengthText, $okPublish);
         $this->updateValidateTest($user, $article, $okLengthTitle, null, $okPublish);
         $this->updateValidateTest($user, $article, $okLengthTitle, $okLengthText, null);
@@ -172,8 +171,8 @@ class ArticleTest extends TestCase
     {
         $response = $this->actingAs($user)->post('/article/update/dummy',
             [
-                'title' => $title,
-                'text' => $text,
+                'title'   => $title,
+                'text'    => $text,
                 'publish' => $publish,
             ]);
         $response->assertStatus(404);
@@ -181,35 +180,35 @@ class ArticleTest extends TestCase
 
     private function updateValidateTest($user, $article, $title, $text, $publish)
     {
-        $response = $this->actingAs($user)->post('/article/update/' . $article->id,
+        $response = $this->actingAs($user)->post('/article/update/'.$article->id,
             [
-                'title' => $title,
-                'text' => $text,
+                'title'   => $title,
+                'text'    => $text,
                 'publish' => $publish,
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
-            'id' => $article->id,
-            'title' => $title,
-            'text' => $text,
-            'publish' => $publish
+            'id'      => $article->id,
+            'title'   => $title,
+            'text'    => $text,
+            'publish' => $publish,
         ]);
     }
 
     private function updateSuccessTest($user, $article, $title, $text, $publish)
     {
-        $response = $this->actingAs($user)->post('/article/update/' . $article->id,
+        $response = $this->actingAs($user)->post('/article/update/'.$article->id,
             [
-                'title' => $title,
-                'text' => $text,
+                'title'   => $title,
+                'text'    => $text,
                 'publish' => $publish,
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
-            'id' => $article->id,
-            'title' => $title,
-            'text' => $text,
-            'publish' => $publish
+            'id'      => $article->id,
+            'title'   => $title,
+            'text'    => $text,
+            'publish' => $publish,
         ]);
     }
 
@@ -218,10 +217,10 @@ class ArticleTest extends TestCase
         // メソッド名にdeleteは使用できない？
         $response = $this->actingAs($user)->post('/article/delete/dummy');
         $response->assertStatus(404);
-        $response = $this->actingAs($user)->post('/article/delete/' . $article->id);
+        $response = $this->actingAs($user)->post('/article/delete/'.$article->id);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
-            'id' => $article->id
+            'id' => $article->id,
         ]);
     }
 
@@ -229,11 +228,11 @@ class ArticleTest extends TestCase
     {
         $response = $this->actingAs($user)->post('/article/back/draft/dummy');
         $response->assertStatus(404);
-        $response = $this->actingAs($user)->post('/article/back/draft/' . $article->id);
+        $response = $this->actingAs($user)->post('/article/back/draft/'.$article->id);
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
-            'id' => $article->id,
-            'publish' => 0
+            'id'      => $article->id,
+            'publish' => 0,
         ]);
     }
 }

@@ -20,7 +20,7 @@ Route::get('/article/show/{article}', 'ArticleController@show')->name('article.s
 // コメント登録
 Route::post('/article/{article}/comment/store', 'CommentController@store')->name('comment.store');
 
-/** 以下、要認証 */
+/* 以下、要認証 */
 
 // ダッシュボード
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
