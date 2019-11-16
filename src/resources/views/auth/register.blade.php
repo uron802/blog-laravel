@@ -1,7 +1,67 @@
-@extends('layouts.app')
+@extends('layouts.app-auth')
 
 @section('content')
-<div class="container">
+
+<section class="hero">
+    <div class="hero-body">
+        <h1 class="title">
+            {{ __('Register') }}
+        </h1>
+    </div>
+</section>
+
+<div class='box'>
+    <form method="POST" action="{{ route('register') }}">
+        @csrf
+        <div class="field">
+            <label class="label">{{ __('Name') }}</label>
+            <p class="control">
+                <input id="name" type="text" class="input {{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+            </p>
+            @if ($errors->has('name'))
+            <p class="help is-danger">
+                {{ $errors->first('name') }}
+            </p>
+            @endif
+        </div>
+        <div class="field">
+            <label class="label">{{ __('E-Mail Address') }}</label>
+            <p class="control">
+                <input id="email" type="email" class="input {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+            </p>
+            @if ($errors->has('email'))
+            <p class="help is-danger">
+                {{ $errors->first('email') }}
+            </p>
+            @endif
+        </div>
+        <div class="field">
+            <label class="label">{{ __('Password') }}</label>
+            <p class="control">
+                <input id="password" type="password" class="input {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+            </p>
+            @if ($errors->has('password'))
+            <p class="help is-danger">
+                {{ $errors->first('password') }}
+            </p>
+            @endif
+        </div>
+        <div class="field">
+            <label class="label">{{ __('Confirm Password') }}</label>
+            <p class="control">
+                <input id="password-confirm" type="password" class="input" name="password_confirmation" required>
+            </p>
+            @if ($errors->has('password-confirm'))
+            <p class="help is-danger">
+                {{ $errors->first('password-confirm') }}
+            </p>
+            @endif
+        </div>
+        <button type="submit" class="button is-block is-info is-large is-fullwidth"> {{ __('Register') }}</button>
+    </form>
+</div>
+
+<div class="container" style="display:none;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
