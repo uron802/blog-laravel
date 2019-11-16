@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@mdi/font": "^3.9.97",
-        "bulma": "^0.7.5"
+        "bulma": "^0.7.5",
+        "bulma-calendar": "^6.0.7"
     }
 }

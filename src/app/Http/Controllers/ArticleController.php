@@ -6,6 +6,7 @@ use App\Http\Requests\ArticleFormRequest;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,12 +22,12 @@ class ArticleController extends Controller
         $tagId = $request->query('tag');
         $tag = Tag::where('id', '=', $tagId)->first();
         if ($tag == null) {
-            $articles = Article::publishEqual(self::PUBLISH_ARTICLE)->orderBy('post_date_time', 'desc')->with('tags')->simplePaginate(1);
+            $articles = Article::publishEqual(self::PUBLISH_ARTICLE)->reserve()->orderBy('post_date_time', 'desc')->with('tags')->simplePaginate(1);
 
             return view('article.index', ['articles' => $articles]);
         } else {
             $tagId = $request->query('tag');
-            $articles = Article::publishEqual(self::PUBLISH_ARTICLE)->whereHas('tags', function ($query) use ($tagId) {
+            $articles = Article::publishEqual(self::PUBLISH_ARTICLE)->reserve()->whereHas('tags', function ($query) use ($tagId) {
                 $query->where('id', '=', $tagId);
             })->orderBy('post_date_time', 'desc')->with('tags')->simplePaginate(1);
 
@@ -63,6 +64,7 @@ class ArticleController extends Controller
 
     public function show(Article $article, Request $request)
     {
+        // TODO 予約投稿した記事を閲覧できないようにする
         $comments = Comment::where('parent_article_id', $article->id)->get();
         $tags = $article->tags()->get();
 
@@ -91,7 +93,12 @@ class ArticleController extends Controller
         $article->text = $request->text;
         $article->publish = $request->publish;
         $article->author = Auth::user()->id;
-        $article->post_date_time = date('Y/m/d H:i:s');
+        $article->reserve = $request->reserve;
+        if ($article->reserve) {
+            $article->post_date_time = Carbon::parse($request->reserve_date . ' ' . $request->reserve_time);
+        } else {
+            $article->post_date_time = date('Y/m/d H:i:s');
+        }
         $article->save();
 
         $this->storeTag($request, $article);
@@ -105,7 +112,12 @@ class ArticleController extends Controller
         $article->text = $request->text;
         $article->publish = $request->publish;
         $article->author = Auth::user()->id;
-        $article->post_date_time = date('Y/m/d H:i:s');
+        $article->reserve = $request->reserve;
+        if ($article->reserve) {
+            $article->post_date_time = Carbon::parse($request->reserve_date . ' ' . $request->reserve_time);
+        } else {
+            $article->post_date_time = date('Y/m/d H:i:s');
+        }
 
         if ($article != null) {
             $article->save();

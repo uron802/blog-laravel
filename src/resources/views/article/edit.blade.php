@@ -45,6 +45,41 @@
         <div>{{ $errors->first('text') }}</div>
         @endif
     </div>
+    <div class="field">
+        <label class="label">予約投稿</label>
+    </div>
+    <div class="field">
+        <div class="control">
+            <label class="radio">
+              <input type="radio" name="reserve" value="0" {{ $article->reserve === 0? 'checked=' : '' }}>
+              すぐに公開する
+            </label>
+            <label class="radio">
+              <input type="radio" name="reserve" value="1" {{ $article->reserve === 1? 'checked' : '' }}>
+              指定日時で予約投稿する
+            </label>
+        </div>
+    </div>
+    <div class="field is-grouped">
+        <div class="control">
+            <input type="date" name="reserve_date" id="reserve_date" class='input' value="{{ $article->reserve_date }}" >
+        </div>
+        <div class="control">
+            <input type="time" name="reserve_time" id="reserve_time" class='input' value="{{ $article->reserve_time }}">
+        </div>
+    </div>
+    <div class="field">
+        @if ($errors->has('reserve_date'))
+        <div class="help is-danger">
+            {{ $errors->first('reserve_date') }}
+        </div>
+        @endif
+        @if ($errors->has('reserve_time'))
+        <div class="help is-danger">
+            {{ $errors->first('reserve_time') }}
+        </div>
+        @endif
+    </div>
     <input type="hidden" name="publish" id="publish" value="{{ $article->publish }}">
     <div class='button-area'>
     @if($article->publish == "0")

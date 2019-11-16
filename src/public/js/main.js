@@ -37,4 +37,7 @@ $(document).ready(function() {
             });
         }
     });
+
+    // var date = bulmaCalendar.attach('[type="date"]', {"type" : "date", "dateFormat" : "YYYY-MM-DD"});
+    // var time = bulmaCalendar.attach('[type="time"]', {"type" : "time", "dateFormat" : "YYYY-MM-DD"});
 });
