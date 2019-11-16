@@ -95,7 +95,7 @@ class ArticleController extends Controller
         $article->author = Auth::user()->id;
         $article->reserve = $request->reserve;
         if ($article->reserve) {
-            $article->post_date_time = Carbon::parse($request->reserve_date . ' ' . $request->reserve_time);
+            $article->post_date_time = Carbon::parse($request->reserve_date.' '.$request->reserve_time);
         } else {
             $article->post_date_time = date('Y/m/d H:i:s');
         }
@@ -114,7 +114,7 @@ class ArticleController extends Controller
         $article->author = Auth::user()->id;
         $article->reserve = $request->reserve;
         if ($article->reserve) {
-            $article->post_date_time = Carbon::parse($request->reserve_date . ' ' . $request->reserve_time);
+            $article->post_date_time = Carbon::parse($request->reserve_date.' '.$request->reserve_time);
         } else {
             $article->post_date_time = date('Y/m/d H:i:s');
         }

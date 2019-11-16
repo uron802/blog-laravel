@@ -28,7 +28,6 @@ class Article extends Model
         if ($this->reserve) {
             return Carbon::parse($this->post_date_time)->format('Y-m-d');
         }
-        return null;
     }
 
     /**
@@ -41,7 +40,6 @@ class Article extends Model
         if ($this->reserve) {
             return Carbon::parse($this->post_date_time)->format('H:i');
         }
-        return null;
     }
 
     public function scopePublishEqual($query, $str)
@@ -51,7 +49,7 @@ class Article extends Model
 
     public function scopeReserve($query)
     {
-        return $query->where('reserve', 0)->orWhere(function($query) {
+        return $query->where('reserve', 0)->orWhere(function ($query) {
             $query->where('reserve', 1)->where('post_date_time', '<=', date('Y/m/d H:i:s'));
         });
     }
