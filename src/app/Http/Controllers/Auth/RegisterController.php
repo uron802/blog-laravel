@@ -72,14 +72,14 @@ class RegisterController extends Controller
                 'name'     => $data['name'],
                 'email'    => $data['email'],
                 'password' => Hash::make($data['password']),
-                'active'   => 1
+                'active'   => 1,
             ]);
         } else {
             return User::create([
                 'name'     => $data['name'],
                 'email'    => $data['email'],
                 'password' => Hash::make($data['password']),
-                'active'   => 0
+                'active'   => 0,
             ]);
         }
     }
@@ -87,7 +87,8 @@ class RegisterController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
@@ -97,14 +98,11 @@ class RegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         if ($user->active) {
-
             $this->guard()->login($user);
-
         } else {
 
             // リダイレクト先として登録完了ページを設定
             $this->redirectTo = '/register/complete';
-
         }
 
         return $this->registered($request, $user)
@@ -112,7 +110,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * 登録完了画面
+     * 登録完了画面.
      *
      * @return view
      */
