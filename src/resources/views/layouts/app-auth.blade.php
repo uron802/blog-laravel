@@ -22,6 +22,7 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
 <body>
+    @include('layouts.navbar')
     <div class='container'>
         <main class='column is-4 is-offset-4 has-text-centered'>
             @yield('content')

@@ -7,6 +7,7 @@
             <li><a href="{{ route('article.create') }}">記事作成</a></li>
             <li><a href="{{ route('comment.list') }}">コメント一覧</a></li>
             <li><a href="{{ route('tag.list') }}">カテゴリー一覧</a></li>
+            <li><a href="{{ route('user.list') }}">ユーザー一覧</a></li>
         </ul>
         @endauth
     </div>

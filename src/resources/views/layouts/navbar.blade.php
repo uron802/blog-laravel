@@ -34,6 +34,9 @@
                     <a class="navbar-item" href="{{ route('tag.list') }}">
                         カテゴリー一覧
                     </a>
+                    <a class="navbar-item" href="{{ route('user.list') }}">
+                        ユーザー一覧
+                    </a>
                 </div>
             </div>
             @endauth
@@ -44,6 +47,9 @@
                 <div class="buttons">
                     <a class="button is-primary" href="{{ route('login') }}">
                         <strong>{{ __('Login') }}</strong>
+                    </a>
+                    <a class="button is-success" href="{{ route('register') }}">
+                        <strong>{{ __('Register') }}</strong>
                     </a>
                 </div>
                 @endguest

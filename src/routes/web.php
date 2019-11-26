@@ -12,6 +12,7 @@
 */
 
 Auth::routes();
+Route::get('/register/complete', 'Auth\RegisterController@complete')->name('register.complete');
 
 // トップページ
 Route::get('/', 'ArticleController@index')->name('article');
@@ -54,3 +55,7 @@ Route::get('/tag/edit/{tag}', 'TagController@edit')->name('tag.edit')->middlewar
 Route::post('/tag/update/{tag}', 'TagController@update')->name('tag.update')->middleware('auth');
 // カテゴリー削除
 Route::post('/tag/delete/{tag}', 'TagController@delete')->name('tag.delete')->middleware('auth');
+// ユーザー一覧
+Route::get('/user/list', 'UserController@list')->name('user.list')->middleware('auth');
+// ユーザー有効化
+Route::post('/user/activate/{user}', 'UserController@activate')->name('user.activate')->middleware('auth');

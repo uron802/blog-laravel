@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -65,10 +67,57 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        if (User::count() == 0) {
+            return User::create([
+                'name'     => $data['name'],
+                'email'    => $data['email'],
+                'password' => Hash::make($data['password']),
+                'active'   => 1
+            ]);
+        } else {
+            return User::create([
+                'name'     => $data['name'],
+                'email'    => $data['email'],
+                'password' => Hash::make($data['password']),
+                'active'   => 0
+            ]);
+        }
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        if ($user->active) {
+
+            $this->guard()->login($user);
+
+        } else {
+
+            // リダイレクト先として登録完了ページを設定
+            $this->redirectTo = '/register/complete';
+
+        }
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
+
+    /**
+     * 登録完了画面
+     *
+     * @return view
+     */
+    public function complete()
+    {
+        return view('auth.register.complete');
     }
 }
