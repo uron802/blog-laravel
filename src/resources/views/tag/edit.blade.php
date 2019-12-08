@@ -5,7 +5,7 @@
 <form action="{{ route('tag.update', ['tag' => $tag]) }}" method='post' id='update-form'>
     @csrf
     <div class="field">
-        <label class="label">カテゴリー名</label>
+        <label class="label">カテゴリー名<span class="tag is-danger">必須</span></label>
         <div class="control">
             <input type="text" name="name" id="name" class='input' placeholder='カテゴリー名' value="{{ $tag->name }}" required>
         </div>

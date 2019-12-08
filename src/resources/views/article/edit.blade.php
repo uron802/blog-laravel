@@ -5,7 +5,7 @@
 <form action="{{ route('article.update', ['article' => $article]) }}" method='post' id='update-form'>
     @csrf
     <div class="field">
-        <label class="label">記事タイトル</label>
+        <label class="label">記事タイトル<span class="tag is-danger">必須</span></label>
         <div class="control">
             <input type="text" name="title" id="title" class='input' placeholder='タイトル' value="{{ $article->title }}" required>
         </div>
