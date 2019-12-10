@@ -6,9 +6,7 @@ use App\Http\Requests\ArticleFormRequest;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Tag;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -89,40 +87,15 @@ class ArticleController extends Controller
     public function store(ArticleFormRequest $request)
     {
         $article = new Article();
-        $article->title = $request->title;
-        $article->text = $request->text;
-        $article->publish = $request->publish;
-        $article->author = Auth::user()->id;
-        $article->reserve = $request->reserve;
-        if ($article->reserve) {
-            $article->post_date_time = Carbon::parse($request->reserve_date.' '.$request->reserve_time);
-        } else {
-            $article->post_date_time = date('Y/m/d H:i:s');
-        }
-        $article->save();
-
-        $this->storeTag($request, $article);
+        $request->save($article);
 
         return redirect()->route('article.list');
     }
 
     public function update(Article $article, ArticleFormRequest $request)
     {
-        $article->title = $request->title;
-        $article->text = $request->text;
-        $article->publish = $request->publish;
-        $article->author = Auth::user()->id;
-        $article->reserve = $request->reserve;
-        if ($article->reserve) {
-            $article->post_date_time = Carbon::parse($request->reserve_date.' '.$request->reserve_time);
-        } else {
-            $article->post_date_time = date('Y/m/d H:i:s');
-        }
-
         if ($article != null) {
-            $article->save();
-
-            $this->storeTag($request, $article);
+            $request->save($article);
         }
 
         return redirect()->route('article.list');
@@ -149,27 +122,5 @@ class ArticleController extends Controller
         }
 
         return redirect()->route('article.list');
-    }
-
-    private function storeTag($request, $article)
-    {
-        $tags = $request->input('tag');
-        if ($tags != null) {
-            $article->tags()->detach();
-            foreach ($tags as $tag) {
-                $addTag = Tag::find($tag);
-                $article->tags()->save($addTag);
-            }
-        }
-
-        $newTagNames = $request->input('new-tag-name');
-        if ($newTagNames != null) {
-            foreach ($newTagNames as $newTagName) {
-                $newTag = new Tag();
-                $newTag->name = $newTagName;
-                $newTag->save();
-                $article->tags()->save($newTag);
-            }
-        }
     }
 }
