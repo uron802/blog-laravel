@@ -37,7 +37,7 @@ class ArticleFormRequest extends FormRequest
     }
 
     /**
-     * save Article
+     * save Article.
      *
      * @param Article $article
      */
@@ -48,9 +48,10 @@ class ArticleFormRequest extends FormRequest
     }
 
     /**
-     * save Article function
+     * save Article function.
      *
      * @param [Article] $article
+     *
      * @return void
      */
     private function saveArticle(Article $article)
@@ -69,9 +70,10 @@ class ArticleFormRequest extends FormRequest
     }
 
     /**
-     * save Tag function
+     * save Tag function.
      *
      * @param [Article] $article
+     *
      * @return void
      */
     private function saveTag(Article $article)
