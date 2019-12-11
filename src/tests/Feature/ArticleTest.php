@@ -117,9 +117,9 @@ class ArticleTest extends TestCase
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
-            'title'   => $title,
-            'text'    => $text,
-            'publish' => $publish,
+            'title'      => $title,
+            'text'       => $text,
+            'publish'    => $publish,
             'author_id'  => $user->id,
         ]);
     }
@@ -134,9 +134,9 @@ class ArticleTest extends TestCase
             ]);
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
-            'title'   => $title,
-            'text'    => $text,
-            'publish' => $publish,
+            'title'      => $title,
+            'text'       => $text,
+            'publish'    => $publish,
             'author_id'  => $user->id,
         ]);
     }
