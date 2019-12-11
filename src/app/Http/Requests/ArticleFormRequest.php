@@ -59,7 +59,7 @@ class ArticleFormRequest extends FormRequest
         $article->title = $this->title;
         $article->text = $this->text;
         $article->publish = $this->publish;
-        $article->author = Auth::user()->id;
+        $article->author_id = Auth::user()->id;
         $article->reserve = $this->reserve;
         if ($article->reserve) {
             $article->post_date_time = Carbon::parse($this->reserve_date.' '.$this->reserve_time);

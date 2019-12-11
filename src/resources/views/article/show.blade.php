@@ -3,8 +3,8 @@
 @section('content')
 
 <div class="tile is-child box">
-    <h2 class='title'>{{ $article->title }}</h2>
-    <span class='tag is-info post-date-time'>{{ $article->post_date_time }}</span>
+    <h1 class='title'>{{ $article->title }}</h1>
+    <h2 class='subtitle'><span>@</span>{{ $article->author->name }} {{ $article->post_date_time }}</h2>
     <div class="field is-grouped is-grouped-multiline">
         @forelse ($tags as $tag)
         <div class="control">

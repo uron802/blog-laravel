@@ -9,7 +9,7 @@ $factory->define(App\Models\Article::class, function (Faker $faker) {
         'text'           => $faker->realText($maxNbChars = 200, $indexSize = 2),
         'publish'        => 1,
         'post_date_time' => now(),
-        'author'         => function () {
+        'author_id'         => function () {
             return factory(App\Models\User::class)->create()->id;
         },
     ];

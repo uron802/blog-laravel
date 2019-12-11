@@ -120,7 +120,7 @@ class ArticleTest extends TestCase
             'title'   => $title,
             'text'    => $text,
             'publish' => $publish,
-            'author'  => $user->id,
+            'author_id'  => $user->id,
         ]);
     }
 
@@ -137,7 +137,7 @@ class ArticleTest extends TestCase
             'title'   => $title,
             'text'    => $text,
             'publish' => $publish,
-            'author'  => $user->id,
+            'author_id'  => $user->id,
         ]);
     }
 

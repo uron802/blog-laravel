@@ -69,4 +69,12 @@ class Article extends Model
     {
         return $this->belongsToMany('App\Models\Tag');
     }
+
+    /**
+     * この記事の作者を取得.
+     */
+    public function author()
+    {
+        return $this->belongsTo('App\Models\User', 'author_id');
+    }
 }
