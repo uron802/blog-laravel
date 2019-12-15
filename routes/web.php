@@ -20,6 +20,8 @@ Route::get('/', 'ArticleController@index')->name('article');
 Route::get('/article/show/{article}', 'ArticleController@show')->name('article.show');
 // コメント登録
 Route::post('/article/{article}/comment/store', 'CommentController@store')->name('comment.store');
+// 記事のいいね数を増加する
+Route::post('/article/{article}/plusLikeNum', 'ArticleController@plusLikeNum')->name('article.plusLikeNum');
 
 /* 以下、要認証 */
 

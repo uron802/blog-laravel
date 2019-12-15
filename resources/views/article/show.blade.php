@@ -17,6 +17,12 @@
     </div>
     <div class="article-text content">
         {!! $article->text !!}
+        <a class="button ajax_plus_like_num" href='#' data-article-id='{{ route('article.plusLikeNum', ['article' => $article]) }}'>
+            <span class="icon is-large has-text-danger">
+                <i class="mdi mdi-heart-outline mdi-24px"></i>
+            </span>
+            <span class='js-like_num'>{!! $article->like_num !!}</span>
+        </a>
     </div>
     <div class="box">
         <form action="{{ route('comment.store', ['article' => $article]) }}" method='post' id="comment-form">

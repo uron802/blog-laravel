@@ -38,6 +38,16 @@ $(document).ready(function() {
         }
     });
 
+    $('.ajax_plus_like_num').click(function() {
+        $like_num = $(this).find('.js-like_num');
+        $like_num.text((parseInt($like_num.text()) + 1));
+        $.ajax({
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            type: "POST",
+            url: $(this).attr('data-article-id')
+        });
+    });
+
     // var date = bulmaCalendar.attach('[type="date"]', {"type" : "date", "dateFormat" : "YYYY-MM-DD"});
     // var time = bulmaCalendar.attach('[type="time"]', {"type" : "time", "dateFormat" : "YYYY-MM-DD"});
 });

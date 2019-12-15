@@ -123,4 +123,10 @@ class ArticleController extends Controller
 
         return redirect()->route('article.list');
     }
+
+    public function plusLikeNum(Article $article)
+    {
+        $article->like_num += 1;
+        $article->save();
+    }
 }
