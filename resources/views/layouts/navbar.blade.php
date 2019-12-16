@@ -3,7 +3,7 @@
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://github.com/uron802/blog-laravel">
-                <i class="fab fa-github"></i>
+                <i class="fab fa-github fa-2x"></i>
             </a>
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
             <span aria-hidden="true"></span>

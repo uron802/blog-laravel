@@ -56988,8 +56988,8 @@ window.bulmaCalendar = __webpack_require__(/*! bulma-calendar */ "./node_modules
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\takag\Documents\GitHub\blog-laravel\blog-laravel\src\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\takag\Documents\GitHub\blog-laravel\blog-laravel\src\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\takag\Documents\GitHub\blog-laravel\blog-laravel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\takag\Documents\GitHub\blog-laravel\blog-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
