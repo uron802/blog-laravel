@@ -1,7 +1,12 @@
 @extends('layouts.app-admin')
 
 @section('content')
-
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li class="is-active"><a href="#" aria-current="page">カテゴリー一覧</a></li>
+    </ul>
+</nav>
+<section class='box'>
     <table class='table'>
         <tr>
             <th>カテゴリー名</th>
@@ -20,4 +25,5 @@
         @endforeach
     </table>
     {{ $tags->links() }}
+</section>
 @endsection

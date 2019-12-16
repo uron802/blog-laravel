@@ -1,7 +1,12 @@
 @extends('layouts.app-admin')
 
 @section('content')
-
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li class="is-active"><a href="#" aria-current="page">ユーザー一覧</a></li>
+    </ul>
+</nav>
+<section class='box'>
     <table class='table'>
         <tr>
             <th>メールアドレス</th>
@@ -24,4 +29,5 @@
         @endforeach
     </table>
     {{ $users->links() }}
+</section>
 @endsection

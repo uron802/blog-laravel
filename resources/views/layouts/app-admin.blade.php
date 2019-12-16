@@ -20,15 +20,19 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bulma-admin.css') }}" rel="stylesheet">
 </head>
 <body>
     @include('layouts.navbar')
     <div class='container'>
-        <section id="wrapper">
-            <main>
+        <div class="columns">
+            <div class="column is-3 ">
+                @include('layouts.sidebar-admin')
+            </div>
+            <div class="column is-9">
                 @yield('content')
-            </main>
-        </section>
+            </div>
+        </div>
     </div>
 @yield('script')
 </body>

@@ -1,7 +1,12 @@
 @extends('layouts.app-admin')
 
 @section('content')
-
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li class="is-active"><a href="#" aria-current="page">コメント一覧</a></li>
+    </ul>
+</nav>
+<section class='box'>
     <div class="tabs">
         <ul>
             <li id="tab-approval" class="tab is-active"><a>承認済み</a></li>
@@ -53,4 +58,5 @@
         {{ $comment["value"]->links() }}
     </div>
     @endforeach
+</section>
 @endsection
