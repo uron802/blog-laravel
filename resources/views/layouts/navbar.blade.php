@@ -13,10 +13,10 @@
         </div>
         <div id="navbarBasic" class="navbar-menu">
             <div class="navbar-start">
+                @auth
                 <a class="navbar-item" href="{{ url('/') }}">
                     ホーム
                 </a>
-                @auth
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         {{ config('app.name', 'Laravel') }}
