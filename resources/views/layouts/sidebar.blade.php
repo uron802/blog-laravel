@@ -9,8 +9,6 @@
             @empty
             @endforelse
         </ul>
-    </div>
-    <div class='is-child box'>
         <p class="menu-label">
             カテゴリー
         </p>
