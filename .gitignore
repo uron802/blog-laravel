@@ -2,6 +2,8 @@
 /public/fonts/vendor
 /public/hot
 /public/storage
+/public/userfiles
+/public/js/ckfinder
 /storage/*.key
 /vendor
 .env
