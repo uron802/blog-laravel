@@ -15,32 +15,34 @@ Auth::routes();
 Route::get('/register/complete', 'Auth\RegisterController@complete')->name('register.complete');
 
 // トップページ
-Route::get('/', 'ArticleController@index')->name('article');
+Route::get('/', 'Article\Controller@index')->name('article');
 // 記事詳細
-Route::get('/article/show/{article}', 'ArticleController@show')->name('article.show');
+Route::get('/article/show/{article}', 'Article\Controller@show')->name('article.show');
 // コメント登録
 Route::post('/article/{article}/comment/store', 'CommentController@store')->name('comment.store');
 // 記事のいいね数を増加する
-Route::post('/article/{article}/plusLikeNum', 'ArticleController@plusLikeNum')->name('article.plusLikeNum');
+Route::post('/article/{article}/plusLikeNum', 'Article\Controller@plusLikeNum')->name('article.plusLikeNum');
 
 /* 以下、要認証 */
 
 // ダッシュボード
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 // 記事一覧
-Route::get('/article/list', 'ArticleController@list')->name('article.list')->middleware('auth');
+Route::get('/article/list', 'Article\Controller@list')->name('article.list')->middleware('auth');
 // 記事作成
-Route::get('/article/create', 'ArticleController@create')->name('article.create')->middleware('auth');
+Route::get('/article/create', 'Article\Controller@create')->name('article.create')->middleware('auth');
 // 記事編集
-Route::get('/article/edit/{article}', 'ArticleController@edit')->name('article.edit')->middleware('auth');
-// 記事登録
-Route::post('/article/store', 'ArticleController@store')->name('article.store')->middleware('auth');
-// 記事更新
-Route::post('/article/update/{article}', 'ArticleController@update')->name('article.update')->middleware('auth');
+Route::get('/article/edit/{article}', 'Article\Controller@edit')->name('article.edit')->middleware('auth');
+// 記事を公開する
+Route::post('/public/article/store', 'Article\PublicController@store')->name('public.article.store')->middleware('auth');
+// 記事を下書きで登録する
+Route::post('/private/article/store', 'Article\PrivateController@store')->name('private.article.store')->middleware('auth');
+// 記事を更新して公開する
+Route::post('/public/article/update/{article}', 'Article\PublicController@update')->name('public.article.update')->middleware('auth');
+// 記事を更新して下書きで保存する
+Route::post('/private/article/update/{article}', 'Article\PrivateController@update')->name('private.article.update')->middleware('auth');
 // 記事削除
-Route::post('/article/delete/{article}', 'ArticleController@delete')->name('article.delete')->middleware('auth');
-// 下書きへ戻す
-Route::post('/article/back/draft/{article}', 'ArticleController@backDraft')->name('article.back.draft')->middleware('auth');
+Route::post('/article/delete/{article}', 'Article\Controller@delete')->name('article.delete')->middleware('auth');
 // コメント一覧
 Route::get('/comment/list', 'CommentController@list')->name('comment.list')->middleware('auth');
 // コメントを承認する

@@ -16,7 +16,7 @@
         @endforelse
     </div>
     <div class="article-text content">
-        {!! $article->text !!}
+        {!! $article->lb_content !!}
         <a class="button ajax_plus_like_num" href='#' data-article-id='{{ route('article.plusLikeNum', ['article' => $article]) }}'>
             <span class="icon is-large has-text-danger">
                 <i class="mdi mdi-heart-outline mdi-24px"></i>

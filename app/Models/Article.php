@@ -4,14 +4,20 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use VanOns\Laraberg\Models\Gutenbergable;
 
 class Article extends Model
 {
+    use Gutenbergable;
+
+    const PRIVATE_OF_PUBLISH = false;
+    const PUBLIC_OF_PUBLISH = true;
+
     //
     protected $guarded = ['id'];
     public static $rules = [
         'title'   => 'required|max:191',
-        'text'    => 'required|max:16383',
+        'content' => 'required|max:16383',
         'publish' => 'boolean',
         'reserve' => 'boolean',
     ];

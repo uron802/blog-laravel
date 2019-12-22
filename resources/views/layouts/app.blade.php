@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('vendor/laraberg/css/laraberg.css')}}">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
 <body>
