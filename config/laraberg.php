@@ -16,9 +16,9 @@ return [
 
     'prefix' => 'laraberg',
 
-    "models" => [
-        "block" => Block::class,
-        "content" => Content::class,
+    'models' => [
+        'block'   => Block::class,
+        'content' => Content::class,
     ],
-    
+
 ];

@@ -12,6 +12,7 @@ class PublicController extends ArticleController
     {
         $request->setPublish(Article::PUBLIC_OF_PUBLISH);
         parent::store($request);
+
         return redirect()->route('article.list');
     }
 
@@ -19,6 +20,7 @@ class PublicController extends ArticleController
     {
         $request->setPublish(Article::PUBLIC_OF_PUBLISH);
         parent::update($article, $request);
+
         return redirect()->route('article.list');
     }
 }

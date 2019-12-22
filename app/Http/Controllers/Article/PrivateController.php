@@ -12,6 +12,7 @@ class PrivateController extends ArticleController
     {
         $request->setPublish(Article::PRIVATE_OF_PUBLISH);
         parent::store($request);
+
         return redirect()->route('article.list');
     }
 
@@ -19,6 +20,7 @@ class PrivateController extends ArticleController
     {
         $request->setPublish(Article::PRIVATE_OF_PUBLISH);
         parent::update($article, $request);
+
         return redirect()->route('article.list');
     }
 }
