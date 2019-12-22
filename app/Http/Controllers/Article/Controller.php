@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Article;
 
+use App\Http\Controllers\Controller as BaseController;
 use App\Http\Requests\ArticleFormRequest;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Tag;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {

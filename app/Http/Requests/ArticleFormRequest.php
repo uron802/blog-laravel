@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Auth;
 class ArticleFormRequest extends FormRequest
 {
     /**
-     * 公開/下書きフラグ
+     * 公開/下書きフラグ.
      *
-     * @var boolean
+     * @var bool
      */
     private $publish = false;
 
@@ -70,7 +70,7 @@ class ArticleFormRequest extends FormRequest
         $article->author_id = Auth::user()->id;
         $article->reserve = $this->input('reserve');
         if ($article->reserve) {
-            $article->post_date_time = Carbon::parse($this->input('reserve_date') . ' ' . $this->input('reserve_time'));
+            $article->post_date_time = Carbon::parse($this->input('reserve_date').' '.$this->input('reserve_time'));
         } else {
             $article->post_date_time = date('Y/m/d H:i:s');
         }
@@ -110,9 +110,11 @@ class ArticleFormRequest extends FormRequest
      * 公開/下書きフラグを設定する.
      *
      * @param bolean $publish
+     *
      * @return void
      */
-    public function setPublish($publish) {
+    public function setPublish($publish)
+    {
         $this->publish = $publish;
     }
 }
