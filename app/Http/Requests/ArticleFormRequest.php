@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Auth;
 class ArticleFormRequest extends FormRequest
 {
     /**
+     * 公開/下書きフラグ.
+     *
+     * @var bool
+     */
+    private $publish = false;
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -30,7 +37,7 @@ class ArticleFormRequest extends FormRequest
         // TODO reserve = 1　の場合に reserve_date, reserve_time の入力チェックを行いたい
         return [
             'title'   => 'required|max:191',
-            'text'    => 'required|max:16383',
+            'content' => 'required|max:16383',
             'publish' => 'boolean',
             'reserve' => 'boolean',
         ];
@@ -56,13 +63,14 @@ class ArticleFormRequest extends FormRequest
      */
     private function saveArticle(Article $article)
     {
-        $article->title = $this->title;
-        $article->text = $this->text;
+        $article->title = $this->input('title');
+        $article->excerpt = $this->input('excerpt');
+        $article->lb_content = $this->input('content');
         $article->publish = $this->publish;
         $article->author_id = Auth::user()->id;
-        $article->reserve = $this->reserve;
+        $article->reserve = $this->input('reserve');
         if ($article->reserve) {
-            $article->post_date_time = Carbon::parse($this->reserve_date.' '.$this->reserve_time);
+            $article->post_date_time = Carbon::parse($this->input('reserve_date').' '.$this->input('reserve_time'));
         } else {
             $article->post_date_time = date('Y/m/d H:i:s');
         }
@@ -96,5 +104,17 @@ class ArticleFormRequest extends FormRequest
                 $article->tags()->save($newTag);
             }
         }
+    }
+
+    /**
+     * 公開/下書きフラグを設定する.
+     *
+     * @param bolean $publish
+     *
+     * @return void
+     */
+    public function setPublish($publish)
+    {
+        $this->publish = $publish;
     }
 }

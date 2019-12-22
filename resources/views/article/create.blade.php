@@ -7,7 +7,7 @@
     </ul>
 </nav>
 <section class='box'>
-    <form action="{{ route('article.store') }}" method='post' id="create-form">
+    <form method='post'>
         @csrf
         <div class="field">
             <label class="label">記事タイトル<span class="tag is-danger">必須</span></label>
@@ -39,11 +39,16 @@
         </div>
         <div class="field">
             <label class="label">記事本文</label>
-            <div class="control">
-                <textarea name="text" cols="30" rows="10" id="text">{{ old('text') }}</textarea>
-            </div>
-            @if($errors->has('text'))
-            <div>{{ $errors->first('text') }}</div>
+            <fieldset class="uk-fieldset">
+                <div class="laraberg-sidebar">
+                    <textarea name="excerpt" placeholder="Excerpt" rows="10"></textarea>
+                </div>
+                <div class="uk-margin">
+                    <textarea name="content" id="content" hidden>{{ old('content') }}</textarea>
+                </div>
+            </fieldset>
+            @if($errors->has('content'))
+            <div>{{ $errors->first('content') }}</div>
             @endif
         </div>
         <div class="field">
@@ -81,24 +86,17 @@
             </div>
             @endif
         </div>
-        <input type="hidden" name="publish" id="publish" value="1">
         <div class='button-area'>
-            <input type="submit" class='button' value="下書きに保存する" onclick="event.preventDefault();document.getElementById('publish').value='0';document.getElementById('create-form').submit();">
-            <input type="submit" class='button' value="公開する" onclick="event.preventDefault();document.getElementById('publish').value='1';document.getElementById('create-form').submit();">
+            <input type="submit" formaction='{{ route('private.article.store') }}' class='button' value="下書きに保存する">
+            <input type="submit" formaction='{{ route('public.article.store') }}' class='button' value="公開する">
         </div>
     </form>
 </section>
 @endsection
-
 @section('script')
-<script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
 <script>
-        ClassicEditor
-            .create( document.querySelector( '#text' ), {
-                toolbar: [ 'bold', 'link', 'blockQuote' ],
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
+window.addEventListener('DOMContentLoaded', () => {
+    Laraberg.init('content', { sidebar : true, laravelFilemanager : true});
+});
 </script>
 @endsection

@@ -8,7 +8,7 @@
     </ul>
 </nav>
 <section class='box'>
-    <form action="{{ route('article.update', ['article' => $article]) }}" method='post' id='update-form'>
+    <form method='post'>
         @csrf
         <div class="field">
             <label class="label">記事タイトル<span class="tag is-danger">必須</span></label>
@@ -44,11 +44,16 @@
         </div>
         <div class="field">
             <label class="label">記事本文</label>
-            <div class="control">
-                <textarea name="text" id="text" cols="30" rows="10" id="text">{{ $article->text }}</textarea>
-            </div>
-            @if($errors->has('text'))
-            <div>{{ $errors->first('text') }}</div>
+            <fieldset class="uk-fieldset">
+                <div class="laraberg-sidebar">
+                    <textarea name="excerpt" placeholder="Excerpt" rows="10">{{ $article->excerpt }}</textarea>
+                </div>
+                <div class="uk-margin">
+                    <textarea name="content" id="content" hidden>{{ $article->lb_raw_content }}</textarea>
+                </div>
+            </fieldset>
+            @if($errors->has('content'))
+            <div>{{ $errors->first('content') }}</div>
             @endif
         </div>
         <div class="field">
@@ -86,32 +91,22 @@
             </div>
             @endif
         </div>
-        <input type="hidden" name="publish" id="publish" value="{{ $article->publish }}">
         <div class='button-area'>
         @if($article->publish == "0")
-            <input type="submit" class='button' value="下書きに保存する" onclick="event.preventDefault();document.getElementById('publish').value='0';document.getElementById('update-form').submit();">
-            <input type="submit" class='button is-success' value="公開する" onclick="event.preventDefault();document.getElementById('publish').value='1';document.getElementById('update-form').submit();">
+            <input type="submit" formaction='{{ route('private.article.update', ['article' => $article]) }}' class='button' value="下書きに保存する">
+            <input type="submit" formaction='{{ route('public.article.update', ['article' => $article]) }}' class='button is-success' value="公開する">
         @else
-            <input type="submit" class='button is-success' value="更新する" onclick="event.preventDefault();document.getElementById('publish').value='1';document.getElementById('update-form').submit();">
-            <input type="submit" class='button' value="下書きに戻す" onclick="event.preventDefault();document.getElementById('back-draft-form').submit();">
+            <input type="submit" formaction='{{ route('public.article.update', ['article' => $article]) }}' class='button is-success' value="更新する">
+            <input type="submit" formaction='{{ route('private.article.update', ['article' => $article]) }}' class='button' value="下書きに戻す">
         @endif
         </div>
     </form>
-    <form action="{{ route('article.back.draft', ['article' => $article]) }}" method='post' id='back-draft-form'>
-        @csrf
-    </form>
 </section>
 @endsection
-
 @section('script')
-<script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
 <script>
-        ClassicEditor
-            .create( document.querySelector( '#text' ), {
-                toolbar: [ 'bold', 'link', 'blockQuote' ],
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
+window.addEventListener('DOMContentLoaded', () => {
+    Laraberg.init('content', { sidebar : true, laravelFilemanager : true});
+});
 </script>
 @endsection
