@@ -34,13 +34,20 @@ class ArticleFormRequest extends FormRequest
      */
     public function rules()
     {
-        // TODO reserve = 1　の場合に reserve_date, reserve_time の入力チェックを行いたい
-        return [
+        $rules = [
             'title'   => 'required|max:191',
             'content' => 'required|max:16383',
             'publish' => 'boolean',
             'reserve' => 'boolean',
         ];
+
+        if ($this->input('reserve') === '1') {
+            $rules['reserve_date'] = 'required|date';
+            //@timeのバリデートができていない
+            $rules['reserve_time'] = 'required';
+        }
+
+        return $rules;
     }
 
     /**
