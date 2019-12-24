@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
         // Bootstrap4 -> default　へ変更
         Paginator::defaultView('pagination::bulma');
         Paginator::defaultSimpleView('pagination::bulma-simple');
+
+        Blade::include('includes.select', 'select');
     }
 }
