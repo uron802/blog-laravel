@@ -56,14 +56,7 @@
         </div>
         <div class="field">
             <div class="control">
-                <label class="radio">
-                <input type="radio" name="reserve" value="0" checked>
-                すぐに公開する
-                </label>
-                <label class="radio">
-                <input type="radio" name="reserve" value="1">
-                指定日時で予約投稿する
-                </label>
+                @radio(['name' => 'reserve', 'list' => config('const.reserves'), 'value' => old('reserve')])
             </div>
         </div>
         <div class="field is-grouped">
@@ -71,7 +64,7 @@
                 <input type="date" name="reserve_date" id="reserve_date" class='input' value="{{ old('reserve_date') }}" >
             </div>
             <div class="control">
-                <input type="time" name="reserve_time" id="reserve_time" class='input' value="{{ old('reserve_time') }}">
+                @select(['name' => 'reserve_time', 'option' => config('const.reserve_times'), 'value' => old('reserve_time')])
             </div>
         </div>
         <div class="field">
