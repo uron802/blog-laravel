@@ -34,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::defaultSimpleView('pagination::bulma-simple');
 
         Blade::include('includes.select', 'select');
+        Blade::include('includes.radio', 'radio');
     }
 }

@@ -56,14 +56,7 @@
         </div>
         <div class="field">
             <div class="control">
-                <label class="radio">
-                <input type="radio" name="reserve" value="0" checked>
-                すぐに公開する
-                </label>
-                <label class="radio">
-                <input type="radio" name="reserve" value="1">
-                指定日時で予約投稿する
-                </label>
+                @radio(['name' => 'reserve', 'list' => config('const.reserves'), 'value' => old('reserve')])
             </div>
         </div>
         <div class="field is-grouped">
