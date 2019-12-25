@@ -71,7 +71,7 @@
                 <input type="date" name="reserve_date" id="reserve_date" class='input' value="{{ old('reserve_date') }}" >
             </div>
             <div class="control">
-                <input type="time" name="reserve_time" id="reserve_time" class='input' value="{{ old('reserve_time') }}">
+                @select(['name' => 'reserve_time', 'option' => config('const.reserve_times'), 'value' => old('reserve_time')])
             </div>
         </div>
         <div class="field">

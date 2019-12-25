@@ -76,7 +76,7 @@
                 <input type="date" name="reserve_date" id="reserve_date" class='input' value="{{ $article->reserve_date }}" >
             </div>
             <div class="control">
-                <input type="time" name="reserve_time" id="reserve_time" class='input' value="{{ $article->reserve_time }}">
+                @select(['name' => 'reserve_time', 'option' => config('const.reserve_times'), 'value' => $article->reserve_time])
             </div>
         </div>
         <div class="field">
