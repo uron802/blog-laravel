@@ -89,6 +89,11 @@ return [
             'driver' => 'errorlog',
             'level'  => 'debug',
         ],
+
+        'herokulog' => [
+            'driver' => 'stack',
+            'channels' => ['errorlog'],
+        ],
     ],
 
 ];
