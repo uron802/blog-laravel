@@ -91,7 +91,7 @@ return [
         ],
 
         'herokulog' => [
-            'driver' => 'stack',
+            'driver'   => 'stack',
             'channels' => ['errorlog'],
         ],
     ],
