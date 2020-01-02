@@ -9,7 +9,7 @@ class NewArticleComposers
 {
     public function compose(View $view)
     {
-        $newArticles = Article::publishEqual('1')->reserve()->orderBy('post_date_time', 'desc')->take(5)->get();
+        $newArticles = Article::public()->reserve()->orderBy('post_date_time', 'desc')->take(5)->get();
         $view->with('newArticles', $newArticles);
     }
 }

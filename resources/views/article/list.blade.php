@@ -9,7 +9,7 @@
     <section class='box'>
         <div class="tabs">
             <ul>
-                <li id="tab-publish" class="tab is-active"><a>公開</a></li>
+                <li id="tab-public" class="tab is-active"><a>公開</a></li>
                 <li id="tab-private" class="tab"><a>下書き</a></li>
                 <li id="tab-all" class="tab"><a>すべて</a></li>
             </ul>

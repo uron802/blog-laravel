@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use VanOns\Laraberg\Models\Gutenbergable;
 
 class Article extends Model
@@ -48,9 +49,19 @@ class Article extends Model
         }
     }
 
-    public function scopePublishEqual($query, $str)
+    public function scopeEditable($query)
     {
-        return $query->where('publish', $str);
+        return $query->where('author_id', Auth::user()->id);
+    }
+
+    public function scopePublic($query)
+    {
+        return $query->where('publish', self::PUBLIC_OF_PUBLISH);
+    }
+
+    public function scopePrivate($query)
+    {
+        return $query->where('publish', self::PRIVATE_OF_PUBLISH);
     }
 
     public function scopeReserve($query)
