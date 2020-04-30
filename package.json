@@ -19,7 +19,7 @@
         "bulma-calendar": "^6.0.7",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.2.1",
-        "jquery": "^3.4",
+        "jquery": "^3.5",
         "laravel-mix": "^4.1.4",
         "lodash": "^4.17.13",
         "popper.js": "^1.12",
