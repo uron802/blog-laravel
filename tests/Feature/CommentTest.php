@@ -62,11 +62,13 @@ class CommentTest extends TestCase
 
     private function storeValidateTest($article, $contributor, $text)
     {
-        $response = $this->post('/article/'.$article->id.'/comment/store',
+        $response = $this->post(
+            '/article/'.$article->id.'/comment/store',
             [
                 'contributor' => $contributor,
                 'text'        => $text,
-            ]);
+            ]
+        );
         $response->assertStatus(302);
         $this->assertDatabaseMissing('comments', [
             'contributor'       => $contributor,
@@ -78,11 +80,13 @@ class CommentTest extends TestCase
 
     private function storeSuccessTest($article, $contributor, $text)
     {
-        $response = $this->post('/article/'.$article->id.'/comment/store',
+        $response = $this->post(
+            '/article/'.$article->id.'/comment/store',
             [
                 'contributor' => $contributor,
                 'text'        => $text,
-            ]);
+            ]
+        );
         $response->assertStatus(302);
         $this->assertDatabaseHas('comments', [
             'contributor'       => $contributor,
