@@ -109,12 +109,14 @@ class ArticleTest extends TestCase
 
     private function storeValidateTest($user, $title, $text, $publish)
     {
-        $response = $this->actingAs($user)->post('/article/store',
+        $response = $this->actingAs($user)->post(
+            '/article/store',
             [
                 'title'   => $title,
                 'text'    => $text,
                 'publish' => $publish,
-            ]);
+            ]
+        );
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
             'title'      => $title,
@@ -126,12 +128,14 @@ class ArticleTest extends TestCase
 
     private function storeSuccessTest($user, $title, $text, $publish)
     {
-        $response = $this->actingAs($user)->post('/article/store',
+        $response = $this->actingAs($user)->post(
+            '/article/store',
             [
                 'title'   => $title,
                 'text'    => $text,
                 'publish' => $publish,
-            ]);
+            ]
+        );
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
             'title'      => $title,
@@ -169,23 +173,27 @@ class ArticleTest extends TestCase
 
     private function updateNonExistTest($user, $title, $text, $publish)
     {
-        $response = $this->actingAs($user)->post('/article/update/dummy',
+        $response = $this->actingAs($user)->post(
+            '/article/update/dummy',
             [
                 'title'   => $title,
                 'text'    => $text,
                 'publish' => $publish,
-            ]);
+            ]
+        );
         $response->assertStatus(404);
     }
 
     private function updateValidateTest($user, $article, $title, $text, $publish)
     {
-        $response = $this->actingAs($user)->post('/article/update/'.$article->id,
+        $response = $this->actingAs($user)->post(
+            '/article/update/'.$article->id,
             [
                 'title'   => $title,
                 'text'    => $text,
                 'publish' => $publish,
-            ]);
+            ]
+        );
         $response->assertStatus(302);
         $this->assertDatabaseMissing('articles', [
             'id'      => $article->id,
@@ -197,12 +205,14 @@ class ArticleTest extends TestCase
 
     private function updateSuccessTest($user, $article, $title, $text, $publish)
     {
-        $response = $this->actingAs($user)->post('/article/update/'.$article->id,
+        $response = $this->actingAs($user)->post(
+            '/article/update/'.$article->id,
             [
                 'title'   => $title,
                 'text'    => $text,
                 'publish' => $publish,
-            ]);
+            ]
+        );
         $response->assertStatus(302);
         $this->assertDatabaseHas('articles', [
             'id'      => $article->id,
