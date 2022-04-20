@@ -10,23 +10,17 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "heroku-postbuild": "npm run production"
     },
-    "devDependencies": {},
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.12.0",
+        "@fortawesome/fontawesome-free": "^5.15.4",
         "@mdi/font": "^3.9.97",
-        "axios": "^0.21.2",
-        "bulma": "^0.7.5",
-        "bulma-calendar": "^6.0.7",
-        "bootstrap": "^4.0.0",
+        "@popperjs/core": "^2.11.5",
+        "axios": "^0.26.1",
+        "bootstrap": "^4.6.1",
+        "bulma": "^0.9.3",
+        "bulma-calendar": "^6.1.18",
         "cross-env": "^5.2.1",
-        "jquery": "^3.5",
-        "laravel-mix": "^4.1.4",
-        "lodash": "^4.17.21",
-        "popper.js": "^1.12",
-        "resolve-url-loader": "^2.3.1",
-        "sass": "^1.23.0",
-        "sass-loader": "^7.3.1",
-        "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.10"
+        "jquery": "^3.6",
+        "laravel-mix": "^6.0.43",
+        "lodash": "^4.17.21"
     }
 }
