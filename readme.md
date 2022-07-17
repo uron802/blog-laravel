@@ -5,7 +5,7 @@ Blog Application made with Laravel
 * これはLaravelの基本的な機能を使ったプログアプリケーションです
 
 ## Demo
-[デモサイト](http://blog-laravel.uron802.work/)
+[デモサイト](https://uron802-blog-laravel.herokuapp.com/)
 
 |E-Mail Address|Password|
 |---|---|
