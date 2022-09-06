@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'uron802-blog-laravel'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_08288EC4FA174BC0A816DBEA4F347459 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E474F0813A34494FB7115298BE053099 }}
           package: .
