@@ -12,7 +12,9 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
-        "@mdi/font": "^3.9.97",
+        "@mdi/font": "^3.9.97"
+    },
+    "devDependencies": {
         "@popperjs/core": "^2.11.5",
         "axios": "^0.26.1",
         "bootstrap": "^5.2.0",
@@ -21,9 +23,7 @@
         "cross-env": "^5.2.1",
         "jquery": "^3.6",
         "laravel-mix": "^6.0.43",
-        "lodash": "^4.17.21"
-    },
-    "devDependencies": {
+        "lodash": "^4.17.21",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.54.8",
         "sass-loader": "^12.1.0"
