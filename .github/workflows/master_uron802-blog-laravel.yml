@@ -42,7 +42,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install
+          npm install --production
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
