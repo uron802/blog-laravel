@@ -1,8 +1,6 @@
 /node_modules
-/public/css/app.css
 /public/fonts/vendor
 /public/hot
-/public/js/app.js
 /public/storage
 /storage/*.key
 /vendor
@@ -12,3 +10,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/.vscode
