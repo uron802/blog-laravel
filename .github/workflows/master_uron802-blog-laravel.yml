@@ -42,7 +42,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install
+          npm install --no-optional
           npm run dev
 
       - name: Upload artifact for deployment job
