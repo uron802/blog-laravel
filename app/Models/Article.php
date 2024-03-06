@@ -4,11 +4,9 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use VanOns\Laraberg\Models\Gutenbergable;
 
 class Article extends Model
 {
-    use Gutenbergable;
 
     const PRIVATE_OF_PUBLISH = false;
     const PUBLIC_OF_PUBLISH = true;
