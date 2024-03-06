@@ -4,16 +4,6 @@ Blog Application made with Laravel
 ## Overview
 * これはLaravelの基本的な機能を使ったプログアプリケーションです
 
-## Demo
-[デモサイト](https://uron802-blog-laravel.herokuapp.com/)
-
-|E-Mail Address|Password|
-|---|---|
-|demo@example.com|demodemo|
-
-* PHP 7.3.4
-* MySQL 5.7
-
 ## Install Laravel
 * composer update
 * cp .env.example .env
