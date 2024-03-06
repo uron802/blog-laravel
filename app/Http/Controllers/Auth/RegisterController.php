@@ -100,7 +100,6 @@ class RegisterController extends Controller
         if ($user->active) {
             $this->guard()->login($user);
         } else {
-
             // リダイレクト先として登録完了ページを設定
             $this->redirectTo = '/register/complete';
         }
