@@ -26,7 +26,7 @@
             @endforelse
         </div>
         <div class="article-text content">
-            {!! $article->lb_content !!}
+            {!! $article->content !!}
         </div>
         <a class="button" href='{{ route("article.show", ["article" => $article]) }}'>
             <span class="icon is-large has-text-info">
