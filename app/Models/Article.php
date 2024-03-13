@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-
     const PRIVATE_OF_PUBLISH = false;
     const PUBLIC_OF_PUBLISH = true;
 
