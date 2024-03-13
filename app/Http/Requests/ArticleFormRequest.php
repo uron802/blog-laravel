@@ -71,8 +71,7 @@ class ArticleFormRequest extends FormRequest
     private function saveArticle(Article $article)
     {
         $article->title = $this->input('title');
-        $article->excerpt = $this->input('excerpt');
-        $article->lb_content = $this->input('content');
+        $article->content = $this->input('content');
         $article->publish = $this->publish;
         $article->author_id = Auth::user()->id;
         $article->reserve = $this->input('reserve');

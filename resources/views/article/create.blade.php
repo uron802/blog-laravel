@@ -39,12 +39,9 @@
         </div>
         <div class="field">
             <label class="label">記事本文</label>
-            <fieldset class="uk-fieldset">
-                <div class="laraberg-sidebar">
-                    <textarea name="excerpt" placeholder="Excerpt" rows="10"></textarea>
-                </div>
-                <div class="uk-margin">
-                    <textarea name="content" id="content" hidden>{{ old('content') }}</textarea>
+            <fieldset>
+                <div>
+                    <textarea class="textarea" name="content" rows="10">{{ old('content') }}</textarea>
                 </div>
             </fieldset>
             @if($errors->has('content'))
@@ -85,11 +82,4 @@
         </div>
     </form>
 </section>
-@endsection
-@section('script')
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-    Laraberg.init('content', { sidebar : true, laravelFilemanager : true});
-});
-</script>
 @endsection
