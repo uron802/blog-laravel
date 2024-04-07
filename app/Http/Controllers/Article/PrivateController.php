@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers\Article;
 
-use App\Http\Controllers\Article\Controller as ArticleController;
-use App\Http\Requests\ArticleFormRequest;
 use App\Models\Article;
+use App\Http\Requests\ArticleFormRequest;
+use App\Application\Business\Rules\Article\UseCases\Store\Input;
+use App\Http\Controllers\Article\Controller as ArticleController;
+use App\Application\Business\Rules\Article\UseCases\Store\Interactor;
 
 class PrivateController extends ArticleController
 {
-    public function store(ArticleFormRequest $request)
+    public function store(ArticleFormRequest $request, Interactor $interactor)
     {
-        $request->setPublish(Article::PRIVATE_OF_PUBLISH);
-        parent::store($request);
-
+        $output = $interactor->execute(
+            Input::create(
+                title: $request->title,
+                content: $request->content,
+                isPublish: false,
+                isReserve: $request->reserve,
+                reserveDate: $request->reserveDate,
+                reserveTime: $request->reserveTime,
+                authorId: Auth::id(),
+                createdAt: new \DateTimeImmutable(),
+                tagIds: $request->tag,
+            )
+        );
         return redirect()->route('article.list');
     }
 
