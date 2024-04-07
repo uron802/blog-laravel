@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Article;
 
 use App\Models\Article;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ArticleFormRequest;
 use App\Application\Business\Rules\Article\UseCases\Store\Input;
 use App\Http\Controllers\Article\Controller as ArticleController;

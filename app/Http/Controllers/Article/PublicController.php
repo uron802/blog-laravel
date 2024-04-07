@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Article;
 
 use App\Models\Article;
-use App\Http\Controllers\Article\Controller as ArticleController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ArticleFormRequest;
 use App\Application\Business\Rules\Article\UseCases\Store\Input;
+use App\Http\Controllers\Article\Controller as ArticleController;
 use App\Application\Business\Rules\Article\UseCases\Store\Interactor;
 
 class PublicController extends ArticleController
